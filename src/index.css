@@ -1,0 +1,21 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: 'Inter', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  --font-display: 'Space Grotesk Variable', sans-serif;
+}
+
+.presentation-grid {
+  background-image:
+    radial-gradient(ellipse at 90% 13%, #30234d, transparent 60%),
+    radial-gradient(ellipse at 0% 70%, #0d453d80, transparent 58%),
+    linear-gradient(#ffffff08 1px, transparent 1px),
+    linear-gradient(90deg, #ffffff08 1px, transparent 1px);
+  background-size: auto, auto, 48px 48px, 48px 48px;
+}
+
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #ffffff1a; border-radius: 2px; }
+::-webkit-scrollbar-thumb:hover { background: #ffffff33; }
