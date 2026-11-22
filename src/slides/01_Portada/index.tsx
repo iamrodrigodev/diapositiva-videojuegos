@@ -16,7 +16,7 @@ export default function Portada() {
 
   return (
     <motion.div
-      className="mx-auto grid w-full max-w-[1440px] gap-[clamp(1.5rem,4vh,3rem)] px-[clamp(1.25rem,7vw,7rem)] py-[clamp(2rem,6vh,5rem)]"
+      className="mx-auto grid w-full max-w-360 gap-[clamp(1.5rem,4vh,3rem)] px-[clamp(1.25rem,7vw,7rem)] py-[clamp(2rem,6vh,5rem)]"
       variants={stagger}
       initial={reducedMotion ? false : 'hidden'}
       animate="show"
@@ -34,7 +34,7 @@ export default function Portada() {
             Bases de datos
           </span>
         </div>
-        <h1 className="mt-[clamp(1.25rem,3vh,2.5rem)] font-display text-[length:clamp(2.35rem,8.65vw,8rem)] leading-[1.04] font-bold tracking-[-0.07em] text-[#f4f8ff]">
+        <h1 className="mt-[clamp(1.25rem,3vh,2.5rem)] font-display text-[clamp(2.35rem,8.65vw,8rem)] leading-[1.04] font-bold tracking-[-0.07em] text-[#f4f8ff]">
           Persistencia de datos <span className="block w-fit bg-[linear-gradient(105deg,#6ee7b7,#7eb8ff_65%,#c1a5ff)] bg-clip-text pr-[0.06em] pb-[0.1em] text-transparent">en videojuegos</span>
         </h1>
       </motion.header>
