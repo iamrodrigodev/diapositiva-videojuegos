@@ -4,10 +4,11 @@ import CodeBlock from '../../components/CodeBlock'
 import Slide from '../../components/Slide'
 import Tabs from '../../components/Tabs'
 import { FORMAS } from '../../data/formasPersistir'
+import Criterios from './Criterios'
 
 const ICONOS: Record<string, Icon> = { playerprefs: SlidersHorizontalIcon, json: FileCodeIcon, sqlite: DatabaseIcon, servidor: CloudArrowUpIcon }
 
-const TABS = FORMAS.map((forma) => {
+const FORMAS_TABS = FORMAS.map((forma) => {
   const Icono = ICONOS[forma.id] ?? DatabaseIcon
   return {
   id: forma.id,
@@ -32,9 +33,11 @@ const TABS = FORMAS.map((forma) => {
   }
 })
 
+const TABS = [...FORMAS_TABS, { id: 'elegir', label: '¿Cómo elegir?', contenido: <Criterios /> }]
+
 export default function FormasDePersistir() {
   return (
-    <Slide bloque="Bloque 1 · Contexto" titulo="Cuatro formas de persistir en Unity">
+    <Slide bloque="Bloque 1 · Contexto" titulo="Formas de persistir en Unity y cómo elegir">
       <Tabs tabs={TABS} label="Formas de persistir" />
     </Slide>
   )

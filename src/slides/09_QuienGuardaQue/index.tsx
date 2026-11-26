@@ -31,7 +31,15 @@ export default function QuienGuardaQue() {
         Un juego real <strong>combina varias tecnologías</strong>: reparte los 10 datos de Estación Norte y mira cuál se lleva más.
       </Lead>
       <Reveal>
-        <Clasificador id="quien-guarda-que" items={ITEMS} destinos={DESTINOS} columnas="grid-cols-4 max-[1100px]:grid-cols-2" />
+        <Clasificador id="quien-guarda-que" items={ITEMS} destinos={DESTINOS} columnas="grid-cols-4 max-[1100px]:grid-cols-2"
+          conclusion={
+            <p className="flex flex-wrap items-center gap-2 text-fg">
+              <DatabaseIcon aria-hidden="true" size={22} className="text-amber" />
+              <strong className="font-display text-lg text-amber">Por eso elegimos SQLite para Estación Norte:</strong>
+              guarda la mayoría de sus datos (partidas, inventario, historial y top 10) con consultas y sin servidor. Cómo usarlo en Unity: Bloque 2.
+            </p>
+          }
+        />
       </Reveal>
     </Slide>
   )

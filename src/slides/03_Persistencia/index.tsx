@@ -56,9 +56,38 @@ const RUTAS_TABLA = (
   </div>
 )
 
+const ESPECTRO = [
+  { nivel: 'Nada o casi nada', juego: 'Arcade de una sesión', guarda: 'Se juega y se reinicia; como mucho, el récord.', ancho: 'w-1/12' },
+  { nivel: 'Mínima', juego: 'Puzzle casual', guarda: 'Ajustes y último nivel: pocos valores sueltos.', ancho: 'w-4/12' },
+  { nivel: 'Estructurada', juego: 'RPG o aventura', guarda: 'Ranuras de partida, inventario, misiones y puntajes.', ancho: 'w-8/12' },
+  { nivel: 'Compartida', juego: 'Juego online', guarda: 'Cuentas, rankings globales y progreso entre dispositivos.', ancho: 'w-full' },
+]
+
+const CUANDO = (
+  <div className="grid gap-3">
+    <p className="text-body">Casi todo juego persiste algo, pero <strong className="text-fg">no todo juego necesita una base de datos</strong>: depende de cuántos datos hay y de cómo se usan.</p>
+    <ol className="grid gap-2.5">
+      {ESPECTRO.map((paso) => (
+        <li key={paso.nivel} className="grid grid-cols-[13rem_1fr] items-center gap-4 rounded-lg border border-white/12 bg-panel px-4 py-3 max-[760px]:grid-cols-1">
+          <div>
+            <p className="font-mono text-xs text-muted">{paso.juego}</p>
+            <p className="font-display text-lg font-bold text-fg">{paso.nivel}</p>
+          </div>
+          <div>
+            <div className="h-2 rounded-full bg-well"><div className={`h-2 rounded-full bg-amber ${paso.ancho}`} /></div>
+            <p className="mt-1.5 text-sm text-body">{paso.guarda}</p>
+          </div>
+        </li>
+      ))}
+    </ol>
+    <p className="font-mono text-sm text-amber">Estación Norte está en «Estructurada»: ranuras, inventario y top 10 en un solo dispositivo.</p>
+  </div>
+)
+
 const TABS = [
   { id: 'niveles', label: 'Los tres niveles de vida', contenido: NIVELES },
   { id: 'rutas', label: 'Rutas de Unity: ¿dónde escribir?', contenido: RUTAS_TABLA },
+  { id: 'cuando', label: '¿Todo juego necesita base de datos?', contenido: CUANDO },
 ]
 
 export default function Persistencia() {

@@ -41,11 +41,10 @@ Partida p = JsonUtility.FromJson<Partida>(File.ReadAllText(ruta));`,
     nombre: 'SQLite',
     concepto: 'Un motor de base de datos completo dentro de un solo archivo: los datos se organizan en tablas y se piden con SQL, sin servidor. Su funcionamiento en Unity se detalla en el Bloque 2.',
     donde: 'Archivo .db en Application.persistentDataPath',
-    codigo: `-- Se pide solo lo necesario, sin cargar todo el archivo
-SELECT jugador, puntaje
-FROM puntuaciones
-ORDER BY puntaje DESC
-LIMIT 10;`,
+    codigo: `-- Se lee solo la ranura 2, sin cargar todo el archivo
+SELECT nivel, checkpoint
+FROM partidas
+WHERE ranura = 2;`,
     pros: ['Tablas relacionadas y consultas SQL', 'Lee y escribe por filas, no el archivo entero', 'Transacciones: no se corrompe a mitad de un guardado'],
     contras: ['Requiere un plugin', 'Más código inicial que PlayerPrefs o JSON'],
   },

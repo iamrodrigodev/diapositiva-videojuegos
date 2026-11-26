@@ -9,7 +9,7 @@ const TABS = [
   { id: 'fundamentos', label: 'Bases de datos desde cero', contenido: <Fundamentos /> },
   { id: 'comparacion', label: 'SQL vs NoSQL', contenido: <Comparacion /> },
   { id: 'tipos', label: 'Tipos de NoSQL', contenido: <TiposNosql /> },
-  { id: 'acid', label: 'Transacciones ACID', contenido: <Acid /> },
+  { id: 'acid', label: 'Transacciones: la idea', contenido: <Acid /> },
 ]
 
 export default function SqlVsNosql() {

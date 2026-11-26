@@ -13,12 +13,13 @@ type Props = {
   columnas?: string
   porRonda?: number
   onNuevasCartas?: () => void
+  conclusion?: ReactNode
 }
 
 const chip = 'min-h-9 rounded-[0.4rem] border px-3 text-left text-sm focus-visible:outline-2 focus-visible:outline-cyan'
 const accion = 'flex min-h-10 items-center gap-2 rounded-[0.4rem] px-4 text-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan'
 
-export default function Clasificador({ id, items: mazo, destinos, columnas = 'grid-cols-3', porRonda, onNuevasCartas }: Props) {
+export default function Clasificador({ id, items: mazo, destinos, columnas = 'grid-cols-3', porRonda, onNuevasCartas, conclusion }: Props) {
   const repartir = () => barajar(mazo).slice(0, porRonda ?? mazo.length)
   const [items, setItems] = usePersistentState(`${id}:mano`, repartir)
   const [ubicacion, setUbicacion] = usePersistentState<Record<string, string>>(`${id}:ubicacion`, {})
@@ -146,6 +147,8 @@ export default function Clasificador({ id, items: mazo, destinos, columnas = 'gr
           ))}
         </ul>
       )}
+
+      {comprobado && conclusion && <div role="note" className="rounded-lg border border-amber/50 bg-amber/10 p-4">{conclusion}</div>}
     </div>
   )
 }
