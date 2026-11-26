@@ -1,5 +1,6 @@
 import type { ComponentType } from 'react'
 import Portada from './01_Portada'
+import Agenda from './02_Agenda'
 import Persistencia from './03_Persistencia'
 import DondeViveElDato from './04_DondeViveElDato'
 import FormasDePersistir from './05_FormasDePersistir'
@@ -21,11 +22,22 @@ import Cargar from './20_Cargar'
 import Ranuras from './21_Ranuras'
 import GuardarORecalcular from './22_GuardarORecalcular'
 import SeFueLaLuz from './23_SeFueLaLuz'
+import ModeloPuntuaciones from './24_ModeloPuntuaciones'
+import RegistrarPuntaje from './25_RegistrarPuntaje'
+import TopN from './26_TopN'
+import Posicion from './27_Posicion'
+import Limites from './28_Limites'
+import CompletaConsulta from './29_CompletaConsulta'
+import RankingVivo from './30_RankingVivo'
+import Conclusiones from './31_Conclusiones'
+import Podio from './32_Podio'
+import Referencias from './33_Referencias'
 
 export type Diapositiva = { Componente: ComponentType; bloque: 0 | 1 | 2 | 3 | 4 }
 
 export const SLIDES: Diapositiva[] = [
   { Componente: Portada, bloque: 0 },
+  { Componente: Agenda, bloque: 0 },
   { Componente: Persistencia, bloque: 1 },
   { Componente: DondeViveElDato, bloque: 1 },
   { Componente: FormasDePersistir, bloque: 1 },
@@ -47,4 +59,14 @@ export const SLIDES: Diapositiva[] = [
   { Componente: Ranuras, bloque: 3 },
   { Componente: GuardarORecalcular, bloque: 3 },
   { Componente: SeFueLaLuz, bloque: 3 },
+  { Componente: ModeloPuntuaciones, bloque: 4 },
+  { Componente: RegistrarPuntaje, bloque: 4 },
+  { Componente: TopN, bloque: 4 },
+  { Componente: Posicion, bloque: 4 },
+  { Componente: Limites, bloque: 4 },
+  { Componente: CompletaConsulta, bloque: 4 },
+  { Componente: RankingVivo, bloque: 4 },
+  { Componente: Conclusiones, bloque: 0 },
+  { Componente: Podio, bloque: 0 },
+  { Componente: Referencias, bloque: 0 },
 ]
