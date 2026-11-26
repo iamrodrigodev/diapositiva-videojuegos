@@ -1,91 +1,110 @@
-import { ArrowClockwiseIcon, CheckCircleIcon, FloppyDiskIcon, LightningSlashIcon, PlugIcon, WarningIcon } from '@phosphor-icons/react'
+import { ArrowClockwiseIcon, ArrowRightIcon, CheckCircleIcon, FloppyDiskIcon, LightningSlashIcon, PowerIcon, WarningIcon } from '@phosphor-icons/react'
 import { useEffect } from 'react'
-import DataTable from '../../components/DataTable'
 import { sonido } from '../../lib/sonido'
 import { usePersistentState } from '../../lib/usePersistentState'
 
-type Disco = { nivel: number; checkpoint: string; inventario: [string, number][] }
-type Fase = 'listo' | 'escribiendo' | 'cortado' | 'recuperado' | 'terminado'
+type Partida = { nivel: number; lugar: string; objetos: string[] }
+type Fase = 'listo' | 'guardando' | 'cortado' | 'reabierto' | 'completo'
 
-const ANTES: Disco = { nivel: 7, checkpoint: 'Estación norte', inventario: [['Linterna', 1], ['Botiquín', 2]] }
+const ANTES: Partida = { nivel: 7, lugar: 'Estación norte', objetos: ['🔦 Linterna', '💊 Botiquín ×2'] }
+const NUEVA: Partida = { nivel: 8, lugar: 'Faro', objetos: ['🔦 Linterna', '🗝️ Llave roja'] }
 
-const OPERACIONES: { sql: string; aplicar: (d: Disco) => Disco }[] = [
-  { sql: "UPDATE partidas SET nivel = 8, checkpoint = 'Faro'", aplicar: (d) => ({ ...d, nivel: 8, checkpoint: 'Faro' }) },
-  { sql: 'DELETE FROM inventario WHERE partida_id = 1', aplicar: (d) => ({ ...d, inventario: [] }) },
-  { sql: "INSERT INTO inventario VALUES (1, 'Linterna', 1)", aplicar: (d) => ({ ...d, inventario: [...d.inventario, ['Linterna', 1]] }) },
-  { sql: "INSERT INTO inventario VALUES (1, 'Llave roja', 1)", aplicar: (d) => ({ ...d, inventario: [...d.inventario, ['Llave roja', 1]] }) },
+const PASOS: { texto: string; aplicar: (p: Partida) => Partida }[] = [
+  { texto: 'Cambiar nivel y lugar', aplicar: (p) => ({ ...p, nivel: NUEVA.nivel, lugar: NUEVA.lugar }) },
+  { texto: 'Vaciar el inventario viejo', aplicar: (p) => ({ ...p, objetos: [] }) },
+  { texto: 'Guardar 🔦 Linterna', aplicar: (p) => ({ ...p, objetos: [...p.objetos, '🔦 Linterna'] }) },
+  { texto: 'Guardar 🗝️ Llave roja', aplicar: (p) => ({ ...p, objetos: [...p.objetos, '🗝️ Llave roja'] }) },
 ]
 
-const aplicarHasta = (k: number) => OPERACIONES.slice(0, k).reduce((d, op) => op.aplicar(d), ANTES)
+const hasta = (k: number) => PASOS.slice(0, k).reduce((p, paso) => paso.aplicar(p), ANTES)
 
-function VistaDisco({ disco }: { disco: Disco }) {
+function Ranura({ partida, titulo }: { partida: Partida; titulo: string }) {
   return (
-    <div className="grid gap-2">
-      <DataTable nombre="partidas (en disco)" columnas={['nivel', 'checkpoint']} filas={[[disco.nivel, disco.checkpoint]]} />
-      <DataTable nombre="inventario (en disco)" columnas={['item', 'cantidad']} filas={disco.inventario.length ? disco.inventario : [['—', '—']]} />
+    <div className="rounded-lg border border-white/15 bg-well p-3">
+      <p className="font-mono text-xs tracking-[0.15em] text-muted uppercase">{titulo}</p>
+      <p className="mt-1 font-display text-xl font-bold text-fg">Nivel {partida.nivel} · {partida.lugar}</p>
+      <p className="mt-1 text-sm text-body">Inventario: {partida.objetos.length ? partida.objetos.join(', ') : <span className="font-bold text-coral">vacío</span>}</p>
     </div>
   )
 }
 
-const boton = 'flex min-h-11 items-center gap-2 rounded-[0.4rem] px-5 font-bold focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan disabled:opacity-30'
+const boton = 'flex min-h-12 items-center gap-2 rounded-[0.4rem] px-5 text-lg font-bold focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan'
 
 export default function Simulacion() {
-  const [fase, setFase] = usePersistentState<Fase>('luz:fase', 'listo')
-  const [hechas, setHechas] = usePersistentState('luz:hechas', 0)
+  const [fase, setFase] = usePersistentState<Fase>('luz2:fase', 'listo')
+  const [hechos, setHechos] = usePersistentState('luz2:hechos', 0)
 
   useEffect(() => {
-    if (fase !== 'escribiendo') return
-    const t = window.setInterval(() => setHechas((k) => Math.min(k + 1, OPERACIONES.length)), 1100)
+    if (fase !== 'guardando') return
+    const t = window.setInterval(() => setHechos((k) => Math.min(k + 1, PASOS.length)), 1300)
     return () => window.clearInterval(t)
-  }, [fase, setHechas])
+  }, [fase, setHechos])
 
   useEffect(() => {
-    if (fase === 'escribiendo' && hechas >= OPERACIONES.length) { setFase('terminado'); sonido.acierto() }
-  }, [fase, hechas, setFase])
+    if (fase === 'guardando' && hechos >= PASOS.length) { setFase('completo'); sonido.acierto() }
+  }, [fase, hechos, setFase])
 
-  const sinTx = aplicarHasta(hechas)
-  const conTx = fase === 'terminado' ? aplicarHasta(OPERACIONES.length) : ANTES
-  const corrupta = hechas > 0 && hechas < OPERACIONES.length
-
-  const empezar = () => { setHechas(0); setFase('escribiendo') }
+  const guardar = () => { setHechos(0); setFase('guardando'); sonido.pista() }
   const cortar = () => { setFase('cortado'); sonido.error() }
-  const encender = () => setFase('recuperado')
+  const reabrir = () => setFase('reabierto')
+  const reiniciar = () => { setFase('listo'); setHechos(0) }
+
+  const sinTransaccion = hasta(hechos)
+  const corrupta = hechos > 0 && hechos < PASOS.length
+
+  const instruccion = {
+    listo: <>① Pulsa <strong className="text-mint">Guardar partida</strong>.</>,
+    guardando: <>② ¡Rápido! <strong className="text-coral">Corta la luz</strong> antes de que termine.</>,
+    cortado: <>③ La pantalla se apagó. <strong className="text-amber">Vuelve a abrir el juego</strong>: ¿qué quedó guardado?</>,
+    reabierto: <>Compara las dos ranuras. ¿Cuál preferirías como jugador?</>,
+    completo: <>Esta vez no cortaste la luz: los dos guardados terminaron bien. <strong className="text-fg">Prueba otra vez y córtala a mitad.</strong></>,
+  }[fase]
 
   return (
     <div className="grid gap-4">
-      <div className="flex flex-wrap items-center gap-3">
-        <button type="button" onClick={empezar} disabled={fase === 'escribiendo'} className={`${boton} chamfer bg-mint text-ink hover:brightness-110`}><FloppyDiskIcon aria-hidden="true" size={18} /> Guardar partida</button>
-        <button type="button" onClick={cortar} disabled={fase !== 'escribiendo'} className={`${boton} chamfer bg-coral text-ink hover:brightness-110`}><LightningSlashIcon aria-hidden="true" size={18} /> Cortar la luz</button>
-        <button type="button" onClick={encender} disabled={fase !== 'cortado'} className={`${boton} border border-amber text-amber hover:bg-amber/10`}><PlugIcon aria-hidden="true" size={18} /> Volver a encender</button>
-        {fase !== 'listo' && fase !== 'escribiendo' && <button type="button" onClick={() => { setFase('listo'); setHechas(0) }} className={`${boton} border border-white/20 text-fg hover:bg-white/5`}><ArrowClockwiseIcon aria-hidden="true" size={18} /> Reiniciar</button>}
+      <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-3 max-[800px]:grid-cols-1">
+        <Ranura titulo="Lo que había guardado" partida={ANTES} />
+        <ArrowRightIcon aria-hidden="true" size={28} className="justify-self-center text-muted max-[800px]:rotate-90" />
+        <Ranura titulo="Lo que quieres guardar ahora" partida={NUEVA} />
       </div>
 
-      <ol className="grid grid-cols-4 gap-2 font-mono text-[0.72rem] max-[900px]:grid-cols-2">
-        {OPERACIONES.map((op, i) => (
-          <li key={op.sql} className={`rounded-[0.4rem] border p-2 ${i < hechas ? 'border-mint/50 bg-mint/10 text-fg' : fase === 'escribiendo' && i === hechas ? 'animate-pulse border-amber text-amber' : fase === 'cortado' || fase === 'recuperado' ? 'border-coral/40 text-muted line-through' : 'border-white/12 text-muted'}`}>
-            <span className="text-muted">{i + 1}.</span> {op.sql}
-          </li>
-        ))}
-      </ol>
-
-      <div className={`grid grid-cols-2 gap-4 max-[900px]:grid-cols-1 ${fase === 'cortado' ? 'opacity-40 grayscale' : ''}`}>
-        <section className="grid content-start gap-2 rounded-lg border border-coral/45 bg-panel p-4">
-          <p className="flex items-center gap-2 font-display text-lg font-bold text-coral"><WarningIcon aria-hidden="true" size={22} /> Sin transacción</p>
-          <p className="text-sm text-body">Cada orden se escribe en disco apenas se ejecuta.</p>
-          <VistaDisco disco={sinTx} />
-          {fase === 'recuperado' && (corrupta
-            ? <p className="rounded-[0.4rem] border border-coral bg-coral/15 p-2.5 text-sm font-bold text-coral">Partida corrupta: dice nivel {sinTx.nivel} en «{sinTx.checkpoint}», pero el inventario quedó a medias.</p>
-            : <p className="text-sm text-body">El corte llegó {hechas === 0 ? 'antes de escribir nada' : 'al final'}: esta vez hubo suerte.</p>)}
-        </section>
-        <section className="grid content-start gap-2 rounded-lg border border-mint/45 bg-panel p-4">
-          <p className="flex items-center gap-2 font-display text-lg font-bold text-mint"><CheckCircleIcon aria-hidden="true" size={22} /> Con transacción</p>
-          <p className="text-sm text-body">Las órdenes esperan en el diario; el disco cambia solo con <code className="text-mint">COMMIT</code>.</p>
-          <VistaDisco disco={conTx} />
-          {fase === 'escribiendo' && <p className="font-mono text-xs text-amber">En el diario: {hechas} de {OPERACIONES.length} cambios pendientes…</p>}
-          {fase === 'terminado' && <p className="text-sm text-mint">COMMIT: los 4 cambios entraron juntos.</p>}
-          {fase === 'recuperado' && <p className="rounded-[0.4rem] border border-mint bg-mint/15 p-2.5 text-sm font-bold text-mint">Al reabrir, SQLite descartó el diario incompleto: la partida anterior sigue intacta.</p>}
-        </section>
+      <div className="flex flex-wrap items-center gap-3 rounded-lg border border-white/12 bg-panel p-3">
+        {fase === 'listo' && <button type="button" onClick={guardar} className={`${boton} chamfer bg-mint text-ink hover:brightness-110`}><FloppyDiskIcon aria-hidden="true" size={22} /> Guardar partida</button>}
+        {fase === 'guardando' && <button type="button" onClick={cortar} className={`${boton} chamfer animate-pulse bg-coral text-ink hover:brightness-110`}><LightningSlashIcon aria-hidden="true" size={22} /> Cortar la luz</button>}
+        {fase === 'cortado' && <button type="button" onClick={reabrir} className={`${boton} chamfer bg-amber text-ink hover:brightness-110`}><PowerIcon aria-hidden="true" size={22} /> Volver a abrir el juego</button>}
+        {(fase === 'reabierto' || fase === 'completo') && <button type="button" onClick={reiniciar} className={`${boton} border border-white/20 text-fg hover:bg-white/5`}><ArrowClockwiseIcon aria-hidden="true" size={22} /> Probar otra vez</button>}
+        <p role="status" className="text-lg text-body">{instruccion}</p>
       </div>
+
+      <div className={`grid gap-2 ${fase === 'cortado' ? 'opacity-40' : ''} ${fase === 'reabierto' ? 'hidden' : ''}`}>
+        <div className="h-2 overflow-hidden rounded-full bg-well" aria-hidden="true">
+          <div className="h-full bg-mint transition-[width] duration-700" style={{ width: `${(hechos / PASOS.length) * 100}%` }} />
+        </div>
+        <ol className="grid grid-cols-4 gap-2 text-sm max-[800px]:grid-cols-2">
+          {PASOS.map((p, i) => {
+            const estado = i < hechos ? 'hecho' : fase === 'guardando' && i === hechos ? 'ahora' : (fase === 'cortado' || fase === 'reabierto') ? 'perdido' : 'pendiente'
+            const estilos = { hecho: 'border-mint/50 text-fg', ahora: 'border-amber text-amber', perdido: 'border-coral/40 text-muted line-through', pendiente: 'border-white/10 text-muted' }[estado]
+            return <li key={p.texto} className={`rounded-[0.4rem] border px-3 py-2 ${estilos}`}>{i < hechos ? '✓' : `${i + 1}.`} {p.texto}</li>
+          })}
+        </ol>
+      </div>
+
+      {fase === 'reabierto' && (
+        <div className="grid grid-cols-2 gap-4 max-[800px]:grid-cols-1">
+          <section className={`grid gap-2 rounded-lg border-2 p-4 ${corrupta ? 'border-coral bg-coral/10' : 'border-white/15 bg-panel'}`}>
+            <p className="flex items-center gap-2 font-display text-lg font-bold text-coral"><WarningIcon aria-hidden="true" size={22} /> Sin transacción</p>
+            <Ranura titulo="Al volver a abrir" partida={sinTransaccion} />
+            <p className="font-bold text-coral">{corrupta ? 'Partida rota: se guardó la mitad. Perdiste objetos que sí tenías.' : 'Hubo suerte: el corte no partió el guardado.'}</p>
+          </section>
+          <section className="grid gap-2 rounded-lg border-2 border-mint bg-mint/10 p-4">
+            <p className="flex items-center gap-2 font-display text-lg font-bold text-mint"><CheckCircleIcon aria-hidden="true" size={22} /> Con transacción</p>
+            <Ranura titulo="Al volver a abrir" partida={ANTES} />
+            <p className="font-bold text-mint">Todo como antes de guardar: solo se pierde el último avance, nunca la partida.</p>
+          </section>
+        </div>
+      )}
+
+      {fase === 'reabierto' && <p className="text-center font-display text-2xl font-bold text-fg uppercase">Transacción = todo o nada</p>}
     </div>
   )
 }
