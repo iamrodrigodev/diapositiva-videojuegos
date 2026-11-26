@@ -7,6 +7,13 @@ import SqlVsNosql from './06_SqlVsNosql'
 import SqlONosql from './07_SqlONosql'
 import JuegosReales from './08_JuegosReales'
 import QuienGuardaQue from './09_QuienGuardaQue'
+import OrigenSqlite from './10_OrigenSqlite'
+import Arquitectura from './11_Arquitectura'
+import IntegracionUnity from './12_IntegracionUnity'
+import DatabaseManager from './13_DatabaseManager'
+import ConsultasSeguras from './14_ConsultasSeguras'
+import EncuentraElBug from './15_EncuentraElBug'
+import ConectaLosCables from './16_ConectaLosCables'
 
 export type Diapositiva = { Componente: ComponentType; bloque: 0 | 1 | 2 | 3 | 4 }
 
@@ -19,4 +26,11 @@ export const SLIDES: Diapositiva[] = [
   { Componente: SqlONosql, bloque: 1 },
   { Componente: JuegosReales, bloque: 1 },
   { Componente: QuienGuardaQue, bloque: 1 },
+  { Componente: OrigenSqlite, bloque: 2 },
+  { Componente: Arquitectura, bloque: 2 },
+  { Componente: IntegracionUnity, bloque: 2 },
+  { Componente: DatabaseManager, bloque: 2 },
+  { Componente: ConsultasSeguras, bloque: 2 },
+  { Componente: EncuentraElBug, bloque: 2 },
+  { Componente: ConectaLosCables, bloque: 2 },
 ]
