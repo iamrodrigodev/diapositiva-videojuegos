@@ -1,4 +1,3 @@
-// Compartido por el puzzle (07) y su solución (08) para que no se contradigan.
 export type CasoReal = {
   juego: string
   tecnologia: string
@@ -12,8 +11,15 @@ export const CASOS: CasoReal[] = [
     juego: 'Civilization VI',
     tecnologia: 'SQLite',
     tipo: 'SQL local',
-    detalle: 'Los datos del juego (civilizaciones, unidades, edificios) se cargan en bases SQLite; los mods los modifican con sentencias SQL.',
+    detalle: 'Los datos del juego (civilizaciones, unidades, edificios) viven en bases SQLite; los mods los modifican con sentencias SQL.',
     fuente: 'Civilization Wiki · Modding (Civ6)',
+  },
+  {
+    juego: 'Minecraft Java',
+    tecnologia: 'Archivos NBT',
+    tipo: 'Archivo binario propio',
+    detalle: 'Cada mundo se guarda en archivos de región (.mca) con el formato binario NBT diseñado por Mojang.',
+    fuente: 'Minecraft Wiki · Anvil file format',
   },
   {
     juego: 'Minecraft Bedrock',
@@ -31,12 +37,9 @@ export const CASOS: CasoReal[] = [
   },
   {
     juego: 'EVE Online',
-    tecnologia: 'Microsoft SQL Server',
+    tecnologia: 'SQL Server',
     tipo: 'SQL en servidor',
-    detalle: 'El universo compartido persiste en servidores de base de datos SQL Server.',
+    detalle: 'Todo el universo compartido persiste en servidores de base de datos Microsoft SQL Server.',
     fuente: 'CCP Games · A History of EVE Database Server Hardware',
   },
 ]
-
-// Incluye un distractor (PlayerPrefs) que no corresponde a ningún caso.
-export const OPCIONES_PUZZLE = ['MongoDB', 'PlayerPrefs', 'Microsoft SQL Server', 'SQLite', 'LevelDB']

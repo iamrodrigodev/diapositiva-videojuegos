@@ -1,11 +1,11 @@
 import Portada from './01_Portada'
 import Persistencia from './03_Persistencia'
-import CuandoAplicar from './04_CuandoAplicar'
-import SqlVsNosql from './05_SqlVsNosql'
-import Alternativas from './06_Alternativas'
-import PuzzleRelaciona from './07_PuzzleRelaciona'
-import CasosReales from './08_CasosReales'
-import QueUsarias from './09_QueUsarias'
+import DondeViveElDato from './04_DondeViveElDato'
+import FormasDePersistir from './05_FormasDePersistir'
+import SqlVsNosql from './06_SqlVsNosql'
+import SqlONosql from './07_SqlONosql'
+import JuegosReales from './08_JuegosReales'
+import ComoElegir from './09_ComoElegir'
 
 // Orden de la presentación. 02_Agenda se agrega al cerrar el temario.
-export const SLIDES = [Portada, Persistencia, CuandoAplicar, SqlVsNosql, Alternativas, PuzzleRelaciona, CasosReales, QueUsarias]
+export const SLIDES = [Portada, Persistencia, DondeViveElDato, FormasDePersistir, SqlVsNosql, SqlONosql, JuegosReales, ComoElegir]

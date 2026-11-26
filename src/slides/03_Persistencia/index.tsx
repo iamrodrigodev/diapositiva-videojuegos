@@ -1,43 +1,41 @@
-import { ArrowRightIcon, CpuIcon, HardDrivesIcon } from '@phosphor-icons/react'
+import { FloppyDiskIcon, FilmSlateIcon, InfinityIcon } from '@phosphor-icons/react'
 import Card from '../../components/Card'
+import CodeBlock from '../../components/CodeBlock'
 import Lead from '../../components/Lead'
 import Reveal from '../../components/Reveal'
 import Slide from '../../components/Slide'
 
-const DATOS = [
-  ['Progreso', 'Nivel 07, punto de control "Estación norte"'],
-  ['Configuración', 'Volumen 80 %, idioma español'],
-  ['Estadísticas', '12 h jugadas, 340 enemigos derrotados'],
-  ['Puntajes', 'Mejor marca: 9 850 puntos'],
-]
-
 export default function Persistencia() {
   return (
-    <Slide bloque="Bloque 1 · Contexto" titulo="¿Qué es la persistencia de datos?">
+    <Slide bloque="Bloque 1 · Contexto" titulo="Persistencia en Unity: ¿cuánto vive un dato?">
       <Lead>
-        Es lograr que los datos del juego <strong>sobrevivan al cerrarlo</strong>: se escriben en almacenamiento permanente y se vuelven a leer en la siguiente sesión.
+        En Unity, cada dato tiene una <strong>vida útil</strong>. Persistir es llevarlo al último nivel: que <strong>sobreviva al cierre del juego</strong>.
       </Lead>
-
-      <Reveal className="grid grid-cols-[1fr_auto_1fr] items-center gap-4 max-[760px]:grid-cols-1">
-        <Card tone="red" title={<><CpuIcon aria-hidden="true" size={24} /> Memoria RAM</>}>
-          <p className="mt-2">Volátil. Variables y objetos de la escena: al cerrar el juego, <strong>se pierden</strong>.</p>
+      <Reveal className="grid grid-cols-3 gap-4 max-[900px]:grid-cols-1">
+        <Card tone="red" title={<><FilmSlateIcon aria-hidden="true" size={22} /> 1 · Escena</>}>
+          <p className="mt-2 text-sm">Campos de un <code>MonoBehaviour</code>. Mueren al cargar otra escena.</p>
+          <CodeBlock code={`public class Enemigo : MonoBehaviour {
+  int vidas = 3;
+}
+SceneManager.LoadScene("Nivel2");
+// vidas se destruye`} />
         </Card>
-        <ArrowRightIcon aria-hidden="true" size={32} className="justify-self-center text-emerald-300 max-[760px]:rotate-90" />
-        <Card tone="emerald" title={<><HardDrivesIcon aria-hidden="true" size={24} /> Disco o servidor</>}>
-          <p className="mt-2">Persistente. Archivos o bases de datos: los datos <strong>siguen ahí</strong> la próxima vez.</p>
+        <Card tone="blue" title={<><InfinityIcon aria-hidden="true" size={22} /> 2 · Sesión</>}>
+          <p className="mt-2 text-sm">Objetos que cruzan escenas. Mueren al <strong>cerrar el juego</strong>.</p>
+          <CodeBlock code={`public class GameManager : MonoBehaviour {
+  public static int puntaje;
+  void Awake() {
+    DontDestroyOnLoad(gameObject);
+  }
+}`} />
         </Card>
-      </Reveal>
-
-      <Reveal>
-        <h2 className="font-mono text-xs tracking-[0.19em] text-[#a8bdd9] uppercase">Qué guarda un juego · ejemplo: Estación Norte</h2>
-        <ul className="mt-3 grid grid-cols-4 gap-3 max-[760px]:grid-cols-2">
-          {DATOS.map(([tipo, ejemplo]) => (
-            <li key={tipo} className="border-l-2 border-[#7eb8ff] pl-3">
-              <p className="font-display font-bold text-[#f4f8ff]">{tipo}</p>
-              <p className="text-sm text-[#b9c7e0]">{ejemplo}</p>
-            </li>
-          ))}
-        </ul>
+        <Card tone="emerald" title={<><FloppyDiskIcon aria-hidden="true" size={22} /> 3 · Disco</>}>
+          <p className="mt-2 text-sm">Escrito fuera de la RAM. <strong>Sobrevive al cierre</strong>: esto es persistencia.</p>
+          <CodeBlock code={`// carpeta segura por plataforma
+Application.persistentDataPath
+// Windows:
+// AppData/LocalLow/<empresa>/<juego>`} />
+        </Card>
       </Reveal>
     </Slide>
   )
