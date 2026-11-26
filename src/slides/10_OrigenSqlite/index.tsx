@@ -19,10 +19,8 @@ const DATOS = [
 
 export default function OrigenSqlite() {
   return (
-    <Slide bloque="Bloque 2 · SQLite en Unity" titulo="¿De dónde salió SQLite?">
-      <Lead>
-        Nació de un problema real: un programa que <strong>no podía depender de un servidor</strong> de base de datos.
-      </Lead>
+    <Slide bloque="Bloque 2 · SQLite en Unity" titulo="Origen de SQLite">
+      <Lead>En el Bloque 1 elegimos <strong>SQLite</strong> para Estación Norte. Antes de usarlo en Unity: ¿de dónde viene? Nació de un programa que <strong>no podía depender de un servidor</strong>.</Lead>
       <Reveal className="grid grid-cols-[3fr_2fr] gap-4 max-[900px]:grid-cols-1">
         <Card tone="cyan" title={<><AnchorIcon aria-hidden="true" size={24} /> Un destructor de la Marina</>}>
           <p className="mt-2 leading-relaxed">

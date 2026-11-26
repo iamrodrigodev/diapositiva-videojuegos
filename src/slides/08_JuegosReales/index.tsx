@@ -7,7 +7,7 @@ import QuienSoy from './QuienSoy'
 
 export default function JuegosReales() {
   return (
-    <Slide bloque="Bloque 1 · Contexto" titulo={<span className="inline-flex items-center gap-3"><DetectiveIcon aria-hidden="true" /> ¿Quién soy? Juegos reales</span>} interactiva>
+    <Slide bloque="Bloque 1 · Contexto" titulo={<span className="inline-flex items-center gap-3"><DetectiveIcon aria-hidden="true" /> ¿Quién soy?</span>} interactiva>
       <Lead>5 juegos al azar de {CASOS.length} casos reales. Cada pista extra resta puntos: <strong>arriésgate</strong>.</Lead>
       <Reveal>
         <QuienSoy />

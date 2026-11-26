@@ -73,7 +73,7 @@ export const CODIGOS_CON_BUGS: CodigoConBugs[] = [
     },
   },
   {
-    titulo: 'Registrar dos sesiones juntas',
+    titulo: 'Registrar una sesión en una transacción',
     lineas: [
       'using var con = new SqliteConnection(DatabaseManager.Conexion);',
       'con.Open();',
@@ -82,11 +82,12 @@ export const CODIGOS_CON_BUGS: CodigoConBugs[] = [
       'using var cmd = con.CreateCommand();',
       'cmd.Transaction = tx;',
       'tx.Commit();',
-      'cmd.CommandText = "INSERT INTO sesiones (inicio) VALUES (@a), (@b)";',
+      'cmd.CommandText = "INSERT INTO sesiones (inicio) VALUES (@inicio)";',
+      'cmd.Parameters.AddWithValue("@inicio", ahora);',
       'cmd.ExecuteNonQuery();',
     ],
     bugs: {
-      2: 'Cierra la conexión justo después de abrirla: la transacción no tiene con qué trabajar.',
+      2: 'Cierra la conexión justo después de abrirla: BeginTransaction falla con la conexión cerrada.',
       6: 'Confirma antes de escribir: el INSERT queda fuera de la transacción.',
     },
   },
@@ -95,15 +96,15 @@ export const CODIGOS_CON_BUGS: CodigoConBugs[] = [
     lineas: [
       'public void GuardarVolumen(float volumen) {',
       '  using var con = new SqliteConnection(DatabaseManager.Conexion);',
-      '  con.Open();',
       '  using var cmd = con.CreateCommand();',
       '  cmd.CommandText = "UPDATE ajustes SET volumen = " + volumen;',
-      '  cmd.ExecuteReader();',
+      '  cmd.ExecuteNonQuery();',
+      '  con.Open();',
       '}',
     ],
     bugs: {
-      4: 'Valor concatenado: debe ir como parámetro @volumen (además evita errores con comas decimales).',
-      5: 'UPDATE no devuelve filas: se ejecuta con ExecuteNonQuery, no con ExecuteReader.',
+      3: 'Valor concatenado: debe ir como parámetro @volumen (además evita errores con la coma decimal).',
+      5: 'Abre la conexión después de ejecutar: ExecuteNonQuery falla porque la conexión aún estaba cerrada.',
     },
   },
 ]

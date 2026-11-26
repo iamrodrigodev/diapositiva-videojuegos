@@ -92,7 +92,7 @@ const TABS = [
 
 export default function Persistencia() {
   return (
-    <Slide bloque="Bloque 1 · Contexto" titulo="¿Cuánto vive un dato en Unity?">
+    <Slide bloque="Bloque 1 · Contexto" titulo="La vida de un dato">
       <Lead>
         Todo lo que está en RAM desaparece en algún momento. <strong>Persistir</strong> es escribirlo en almacenamiento permanente para que <strong>sobreviva al cierre del juego</strong>.
       </Lead>

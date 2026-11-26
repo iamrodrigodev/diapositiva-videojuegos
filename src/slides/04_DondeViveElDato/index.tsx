@@ -13,7 +13,7 @@ const DESTINOS: DestinoClasificacion[] = [
 
 export default function DondeViveElDato() {
   return (
-    <Slide bloque="Bloque 1 · Contexto" titulo={<span className="inline-flex items-center gap-3"><GameControllerIcon aria-hidden="true" /> Mini-juego: ¿dónde vive cada dato?</span>} interactiva>
+    <Slide bloque="Bloque 1 · Contexto" titulo={<span className="inline-flex items-center gap-3"><GameControllerIcon aria-hidden="true" /> ¿Dónde vive cada dato?</span>} interactiva>
       <Lead>Lleva cada dato de <strong>Estación Norte</strong> a su nivel de vida. ¿Otra mano? <strong>Nuevas cartas</strong>.</Lead>
       <Reveal>
         <Clasificador id="vida-datos" items={MAZO_VIDA_DATOS} destinos={DESTINOS} porRonda={7} />

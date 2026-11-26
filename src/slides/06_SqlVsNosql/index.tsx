@@ -14,7 +14,7 @@ const TABS = [
 
 export default function SqlVsNosql() {
   return (
-    <Slide bloque="Bloque 1 · Contexto" titulo="Bases de datos: SQL y NoSQL">
+    <Slide bloque="Bloque 1 · Contexto" titulo="SQL y NoSQL">
       <Tabs tabs={TABS} label="Bases de datos" />
     </Slide>
   )

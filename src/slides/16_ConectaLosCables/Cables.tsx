@@ -1,5 +1,5 @@
 import { ArrowClockwiseIcon, CrownIcon, LightbulbIcon, LightningIcon, PlugIcon, ShuffleIcon, TimerIcon } from '@phosphor-icons/react'
-import { useLayoutEffect, useRef, useState } from 'react'
+import { useLayoutEffect, useRef, useState, type PointerEvent as ReactPointerEvent } from 'react'
 import Celebracion from '../../components/Celebracion'
 import { CABLES_SQLITE } from '../../data/cablesSqlite'
 import { barajar } from '../../lib/barajar'
@@ -30,6 +30,30 @@ export default function Cables() {
   const reloj = useCronometro('cables:reloj')
   const [puntos, setPuntos] = useState<Record<string, Punto>>({})
   const marco = useRef<HTMLDivElement>(null)
+  const [arrastre, setArrastre] = useState<{ desde: string; x: number; y: number } | null>(null)
+
+  const aLocal = (clientX: number, clientY: number) => {
+    const m = marco.current!
+    const base = m.getBoundingClientRect()
+    const escala = m.offsetWidth / base.width || 1
+    return { x: (clientX - base.left) * escala, y: (clientY - base.top) * escala }
+  }
+
+  const empezarArrastre = (id: string, e: ReactPointerEvent) => {
+    if (comprobado || e.button !== 0) return
+    reloj.iniciar()
+    setArrastre({ desde: id, ...aLocal(e.clientX, e.clientY) })
+    const mover = (ev: PointerEvent) => setArrastre((a) => (a ? { ...a, ...aLocal(ev.clientX, ev.clientY) } : a))
+    const soltar = (ev: PointerEvent) => {
+      window.removeEventListener('pointermove', mover)
+      window.removeEventListener('pointerup', soltar)
+      setArrastre(null)
+      const destino = document.elementFromPoint(ev.clientX, ev.clientY)?.closest<HTMLElement>('[data-destino]')?.dataset['destino']
+      if (destino) conectar(id, destino)
+    }
+    window.addEventListener('pointermove', mover)
+    window.addEventListener('pointerup', soltar)
+  }
 
   useLayoutEffect(() => {
     const m = marco.current
@@ -96,9 +120,15 @@ export default function Cables() {
 
   return (
     <div className="grid gap-3">
-      <div className="flex flex-wrap items-center justify-end gap-4 font-mono text-sm">
+      <div className="flex flex-wrap items-center justify-between gap-4 font-mono text-sm">
+        <p className="flex items-center gap-2 rounded-[0.4rem] border border-cyan/40 bg-cyan/5 px-3 py-1.5 font-sans text-fg">
+          <PlugIcon aria-hidden="true" size={18} className="text-cyan" />
+          <span><strong>Arrastra</strong> desde cada código hasta lo que hace <span className="text-muted">(o tócalo y luego toca su función)</span>. Tocar un cable lo desconecta.</span>
+        </p>
+        <span className="flex items-center gap-4">
         <span className="flex items-center gap-1.5 text-amber"><TimerIcon aria-hidden="true" size={18} /> {formatoTiempo(reloj.segundos)}{pistas > 0 && ` +${pistas * 10} s de pistas`}</span>
         <span className="flex items-center gap-1.5 text-muted"><CrownIcon aria-hidden="true" size={18} /> Récord: {record === null ? '—' : formatoTiempo(record)}</span>
+        </span>
       </div>
       <div ref={marco} className="relative grid grid-cols-[1fr_minmax(6rem,14rem)_1fr] items-stretch">
         <Celebracion activa={ganado} />
@@ -113,12 +143,17 @@ export default function Cables() {
               <path key={izq} className={ganado ? 'cable-energia' : undefined} d={`M ${a.x} ${a.y} C ${medio} ${a.y}, ${medio} ${b.y}, ${b.x} ${b.y}`} fill="none" stroke={trazo} strokeWidth="5" strokeLinecap="round" strokeDasharray={comprobado && izq !== der ? '10 8' : ganado ? '14 10' : undefined} />
             )
           })}
+          {arrastre && puntos[`i-${arrastre.desde}`] && (() => {
+            const a = puntos[`i-${arrastre.desde}`]!
+            const medio = (a.x + arrastre.x) / 2
+            return <path d={`M ${a.x} ${a.y} C ${medio} ${a.y}, ${medio} ${arrastre.y}, ${arrastre.x} ${arrastre.y}`} fill="none" stroke={color(arrastre.desde)} strokeWidth="5" strokeLinecap="round" opacity="0.8" />
+          })()}
         </svg>
 
         <ul aria-label="Código" className="grid gap-2">
           {ronda.izquierda.map((id) => (
             <li key={id}>
-              <button type="button" aria-pressed={seleccion === id} onClick={() => tocarIzquierda(id)} className={`flex min-h-11 w-full items-center justify-between gap-3 rounded-[0.4rem] border bg-well py-1.5 pr-2 pl-3 text-left font-mono text-sm text-fg focus-visible:outline-2 focus-visible:outline-cyan ${seleccion === id ? 'border-amber bg-amber/10' : 'border-white/15 hover:border-white/40'}`}>
+              <button type="button" aria-pressed={seleccion === id} onClick={() => tocarIzquierda(id)} onPointerDown={(e) => empezarArrastre(id, e)} className={`flex min-h-11 w-full cursor-grab touch-none items-center justify-between gap-3 rounded-[0.4rem] border bg-well py-1.5 pr-2 pl-3 text-left font-mono text-sm text-fg focus-visible:outline-2 focus-visible:outline-cyan ${seleccion === id ? 'border-amber bg-amber/10' : 'border-white/15 hover:border-white/40'}`}>
                 {cable(id).codigo}
                 <span data-enchufe={`i-${id}`} className="size-4 shrink-0 rounded-full border-2 border-ink" style={{ background: color(id) }} />
               </button>
@@ -131,7 +166,7 @@ export default function Cables() {
             const conectado = Object.values(conexiones).includes(id)
             return (
               <li key={id}>
-                <button type="button" disabled={!seleccion} onClick={() => tocarDerecha(id)} className={`flex min-h-11 w-full items-center gap-3 rounded-[0.4rem] border bg-panel py-1.5 pr-3 pl-2 text-left text-sm text-fg focus-visible:outline-2 focus-visible:outline-cyan ${pistaVisible === id ? 'border-amber bg-amber/20 ring-2 ring-amber' : seleccion ? 'border-amber/50 hover:bg-amber/10' : 'border-white/15'}`}>
+                <button type="button" data-destino={id} disabled={!seleccion && !arrastre} onClick={() => tocarDerecha(id)} className={`flex min-h-11 w-full items-center gap-3 rounded-[0.4rem] border bg-panel py-1.5 pr-3 pl-2 text-left text-sm text-fg focus-visible:outline-2 focus-visible:outline-cyan ${pistaVisible === id ? 'border-amber bg-amber/20 ring-2 ring-amber' : seleccion || arrastre ? 'border-amber/50 hover:bg-amber/10' : 'border-white/15'}`}>
                   <span data-enchufe={`d-${id}`} className={`size-4 shrink-0 rounded-full border-2 ${conectado ? 'border-fg bg-fg' : 'border-muted bg-transparent'}`} />
                   {cable(id).funcion}
                 </button>

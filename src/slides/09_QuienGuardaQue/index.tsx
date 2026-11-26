@@ -26,7 +26,7 @@ const ITEMS: ItemClasificable[] = [
 
 export default function QuienGuardaQue() {
   return (
-    <Slide bloque="Bloque 1 · Contexto" titulo={<span className="inline-flex items-center gap-3"><StackIcon aria-hidden="true" /> Jefe final: ¿quién guarda qué?</span>} interactiva>
+    <Slide bloque="Bloque 1 · Contexto" titulo={<span className="inline-flex items-center gap-3"><StackIcon aria-hidden="true" /> ¿Quién guarda qué?</span>} interactiva>
       <Lead>
         Un juego real <strong>combina varias tecnologías</strong>: reparte los 10 datos de Estación Norte y mira cuál se lleva más.
       </Lead>

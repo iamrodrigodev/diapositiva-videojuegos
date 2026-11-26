@@ -37,7 +37,7 @@ const TABS = [...FORMAS_TABS, { id: 'elegir', label: '¿Cómo elegir?', contenid
 
 export default function FormasDePersistir() {
   return (
-    <Slide bloque="Bloque 1 · Contexto" titulo="Formas de persistir en Unity y cómo elegir">
+    <Slide bloque="Bloque 1 · Contexto" titulo="Formas de persistir">
       <Tabs tabs={TABS} label="Formas de persistir" />
     </Slide>
   )
