@@ -5,7 +5,6 @@
   --font-mono: 'JetBrains Mono Variable', monospace;
   --font-display: 'Chakra Petch', sans-serif;
 
-  /* Paleta HUD de partida guardada */
   --color-ink: #0b0f1c;
   --color-ink-deep: #070a13;
   --color-panel: #121829;
@@ -20,6 +19,10 @@
   --color-coral: #ff6b5b;
 }
 
+html {
+  font-size: clamp(14px, min(1.45vw, 2.55vh), 26px);
+}
+
 .presentation-grid {
   background-image:
     radial-gradient(ellipse at 85% 0%, #ffb5471a, transparent 55%),
@@ -29,7 +32,6 @@
   background-size: auto, auto, 32px 32px, 32px 32px;
 }
 
-/* Esquina recortada estilo interfaz de juego (solo en elementos sin borde) */
 .chamfer {
   clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
 }

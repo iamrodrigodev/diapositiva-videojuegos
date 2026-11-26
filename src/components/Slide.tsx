@@ -14,7 +14,7 @@ export default function Slide({ bloque, titulo, interactiva, children }: Props) 
 
   return (
     <motion.div
-      className="mx-auto grid w-full max-w-360 gap-[clamp(1rem,3vh,2rem)] px-[clamp(1.25rem,6vw,6rem)] py-[clamp(1.5rem,5vh,4rem)]"
+      className="mx-auto grid w-full max-w-360 gap-[clamp(1rem,3vh,2rem)] px-[clamp(1.25rem,5vw,5rem)] py-[clamp(1rem,3vh,2.5rem)]"
       variants={stagger}
       initial={reducedMotion ? false : 'hidden'}
       animate="show"

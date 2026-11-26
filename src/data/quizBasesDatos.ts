@@ -1,0 +1,16 @@
+import type { PreguntaQuiz } from '../components/Quiz'
+
+// Banco del concurso de la diapositiva 07: cada ronda toma 5 al azar.
+// Cada pregunta se responde con lo explicado en las diapositivas 03-06 (sin trivia de marcas).
+export const QUIZ_BASES_DATOS: PreguntaQuiz[] = [
+  { pregunta: 'Necesitas combinar «partidas» con «inventario» en una sola consulta. ¿Qué modelo lo hace de forma nativa con JOIN?', opciones: ['SQL relacional', 'NoSQL de documentos', 'Clave-valor', 'Grafo'], correcta: 'SQL relacional', explicacion: 'JOIN une tablas relacionadas mediante llaves: es la base del modelo relacional.' },
+  { pregunta: 'El perfil de un jugador se guarda como un solo objeto JSON con sus logros y ajustes anidados. ¿Qué tipo de NoSQL es?', opciones: ['Documento', 'Clave-valor', 'Columnar', 'Grafo'], correcta: 'Documento', explicacion: 'Un documento guarda el objeto completo, con datos anidados y forma propia.' },
+  { pregunta: '¿Qué propiedad ACID evita que un guardado quede a medias?', opciones: ['Atomicidad', 'Consistencia', 'Aislamiento', 'Durabilidad'], correcta: 'Atomicidad', explicacion: 'Todo o nada: si una parte falla, no se aplica ninguna.' },
+  { pregunta: 'Cada clase de personaje tiene atributos distintos. ¿Qué modelo los acepta sin cambiar el esquema?', opciones: ['NoSQL de documentos', 'SQL relacional', 'Una hoja de cálculo', 'PlayerPrefs'], correcta: 'NoSQL de documentos', explicacion: 'El esquema flexible permite campos diferentes en cada documento.' },
+  { pregunta: 'Para una red de amigos y «quizá conozcas a…», el modelo más natural es…', opciones: ['Grafo', 'Columnar', 'Clave-valor', 'Documento'], correcta: 'Grafo', explicacion: 'Las relaciones entre nodos son el dato principal en una base de grafos.' },
+  { pregunta: 'Minecraft Bedrock guarda cada trozo del mundo bajo un nombre como «chunk:12:-4». ¿Qué tipo de NoSQL es?', opciones: ['Clave-valor', 'Documento', 'Grafo', 'Relacional'], correcta: 'Clave-valor', explicacion: 'A cada clave le corresponde un valor: ideal para lecturas directas y muy rápidas.' },
+  { pregunta: 'SQLite pertenece a la familia…', opciones: ['SQL relacional', 'NoSQL de documentos', 'Clave-valor', 'Columnar'], correcta: 'SQL relacional', explicacion: 'Tablas, llaves y consultas SQL, todo dentro de un solo archivo.' },
+  { pregunta: '¿Cómo suelen escalar muchas bases NoSQL?', opciones: ['Horizontal: más servidores', 'Vertical: un servidor más potente', 'No escalan', 'Solo en el disco del jugador'], correcta: 'Horizontal: más servidores', explicacion: 'Reparten los datos entre muchas máquinas para atender millones de usuarios.' },
+  { pregunta: 'Aparece «Partida guardada», se corta la luz y el progreso sigue ahí. ¿Qué propiedad ACID lo garantiza?', opciones: ['Durabilidad', 'Atomicidad', 'Aislamiento', 'Consistencia'], correcta: 'Durabilidad', explicacion: 'Lo confirmado permanece en disco aunque el sistema falle después.' },
+  { pregunta: '¿Qué es una llave foránea (FK)?', opciones: ['Una columna que apunta a la PK de otra tabla', 'La contraseña de la base de datos', 'Un archivo de respaldo', 'Una tabla temporal'], correcta: 'Una columna que apunta a la PK de otra tabla', explicacion: 'Así se relaciona, por ejemplo, cada ítem con su partida.' },
+]

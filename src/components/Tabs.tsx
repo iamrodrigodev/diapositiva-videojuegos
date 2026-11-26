@@ -1,10 +1,11 @@
-import { useState, type ReactNode } from 'react'
+import type { ReactNode } from 'react'
+import { usePersistentState } from '../lib/usePersistentState'
 import Reveal from './Reveal'
 
 export type Tab = { id: string; label: string; contenido: ReactNode }
 
 export default function Tabs({ tabs, label }: { tabs: Tab[]; label: string }) {
-  const [activa, setActiva] = useState(0)
+  const [activa, setActiva] = usePersistentState(`tabs:${label}`, 0)
   const tab = tabs[activa]
 
   return (

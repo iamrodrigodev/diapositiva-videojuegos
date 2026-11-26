@@ -1,5 +1,6 @@
 import Card from '../../components/Card'
 import CodeBlock from '../../components/CodeBlock'
+import LogoChip from '../../components/LogoChip'
 
 const DOCUMENTO = `{
   "id": 42, "nivel": 7,
@@ -13,7 +14,6 @@ const COMPARACION: [string, string, string][] = [
   ['Consultas', 'SQL estándar: filtrar, ordenar, agrupar', 'API propia de cada motor'],
   ['Consistencia', 'Transacciones ACID', 'Muchos priorizan disponibilidad y velocidad'],
   ['Escala', 'Vertical: un servidor más potente', 'Horizontal: repartir en muchos servidores'],
-  ['Motores', 'SQLite, MySQL, PostgreSQL, SQL Server', 'MongoDB, Firestore, LevelDB, Redis'],
 ]
 
 export default function Comparacion() {
@@ -32,6 +32,11 @@ export default function Comparacion() {
             {COMPARACION.map(([criterio, sql, nosql]) => (
               <tr key={criterio}><th scope="row" className="font-display font-bold">{criterio}</th><td>{sql}</td><td>{nosql}</td></tr>
             ))}
+            <tr>
+              <th scope="row" className="font-display font-bold">Motores</th>
+              <td><span className="flex flex-wrap gap-1.5">{['SQLite', 'MySQL', 'PostgreSQL', 'SQL Server'].map((m) => <LogoChip key={m} nombre={m} />)}</span></td>
+              <td><span className="flex flex-wrap gap-1.5">{['MongoDB', 'Firestore', 'LevelDB', 'Redis'].map((m) => <LogoChip key={m} nombre={m} />)}</span></td>
+            </tr>
           </tbody>
         </table>
       </div>

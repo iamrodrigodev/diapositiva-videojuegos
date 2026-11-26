@@ -1,14 +1,14 @@
-import { StackIcon } from '@phosphor-icons/react'
+import { CloudArrowUpIcon, DatabaseIcon, FileCodeIcon, SlidersHorizontalIcon, StackIcon } from '@phosphor-icons/react'
 import Clasificador, { type DestinoClasificacion, type ItemClasificable } from '../../components/Clasificador'
 import Lead from '../../components/Lead'
 import Reveal from '../../components/Reveal'
 import Slide from '../../components/Slide'
 
 const DESTINOS: DestinoClasificacion[] = [
-  { id: 'prefs', titulo: <span className="text-fg">PlayerPrefs</span>, detalle: 'Pocos valores sueltos que se leen al iniciar: no merecen una base de datos.' },
-  { id: 'json', titulo: <span className="text-fg">JSON</span>, detalle: 'Un objeto que se guarda y carga entero, o que el jugador puede exportar y compartir.' },
-  { id: 'sqlite', titulo: <span className="text-amber">SQLite</span>, detalle: 'Muchos registros relacionados que se consultan, filtran y ordenan en el dispositivo.' },
-  { id: 'servidor', titulo: <span className="text-cyan">Servidor</span>, detalle: 'Datos compartidos entre jugadores o con valor real: el servidor es la fuente de verdad.' },
+  { id: 'prefs', titulo: <span className="inline-flex items-center gap-2 text-fg"><SlidersHorizontalIcon aria-hidden="true" /> PlayerPrefs</span>, detalle: 'Pocos valores sueltos que se leen al iniciar: no merecen una base de datos.' },
+  { id: 'json', titulo: <span className="inline-flex items-center gap-2 text-fg"><FileCodeIcon aria-hidden="true" /> JSON</span>, detalle: 'Un objeto que se guarda y carga entero, o que el jugador puede exportar y compartir.' },
+  { id: 'sqlite', titulo: <span className="inline-flex items-center gap-2 text-amber"><DatabaseIcon aria-hidden="true" /> SQLite</span>, detalle: 'Muchos registros relacionados que se consultan, filtran y ordenan en el dispositivo.' },
+  { id: 'servidor', titulo: <span className="inline-flex items-center gap-2 text-cyan"><CloudArrowUpIcon aria-hidden="true" /> Servidor</span>, detalle: 'Datos compartidos entre jugadores o con valor real: el servidor es la fuente de verdad.' },
 ]
 
 const ITEMS: ItemClasificable[] = [
@@ -28,10 +28,10 @@ export default function QuienGuardaQue() {
   return (
     <Slide bloque="Bloque 1 · Contexto" titulo={<span className="inline-flex items-center gap-3"><StackIcon aria-hidden="true" /> Jefe final: ¿quién guarda qué?</span>} interactiva>
       <Lead>
-        Un juego real <strong>combina varias tecnologías</strong>. Un voluntario reparte los 10 datos de Estación Norte entre las cuatro; al comprobar se revela el criterio de cada una. Fíjense en cuál se lleva más datos.
+        Un juego real <strong>combina varias tecnologías</strong>: reparte los 10 datos de Estación Norte y mira cuál se lleva más.
       </Lead>
       <Reveal>
-        <Clasificador items={ITEMS} destinos={DESTINOS} columnas="grid-cols-4 max-[1100px]:grid-cols-2" />
+        <Clasificador id="quien-guarda-que" items={ITEMS} destinos={DESTINOS} columnas="grid-cols-4 max-[1100px]:grid-cols-2" />
       </Reveal>
     </Slide>
   )
