@@ -1,4 +1,3 @@
-// Efectos sintetizados con Web Audio, sin archivos de audio.
 let ctx: AudioContext | null = null
 
 function tono(frecuencia: number, inicio: number, duracion: number, tipo: OscillatorType = 'square', volumen = 0.08) {

@@ -1,6 +1,5 @@
 import { useLayoutEffect, useRef, useState, type ReactNode } from 'react'
 
-// Si la diapositiva no cabe (zoom del navegador, pantalla baja), la escala hacia abajo para evitar el scroll.
 export default function AjusteAPantalla({ children }: { children: ReactNode }) {
   const marco = useRef<HTMLDivElement>(null)
   const contenido = useRef<HTMLDivElement>(null)
@@ -10,7 +9,6 @@ export default function AjusteAPantalla({ children }: { children: ReactNode }) {
     const m = marco.current
     const c = contenido.current
     if (!m || !c) return
-    // offsetHeight no incluye el transform: es la altura natural del contenido.
     const ajustar = () => setEscala(Math.min(1, m.clientHeight / c.offsetHeight))
     const observador = new ResizeObserver(ajustar)
     observador.observe(m)

@@ -2,13 +2,11 @@ export type CasoReal = {
   juego: string
   tecnologia: string
   tipo: string
-  /** Pista para quien juega: describe la tecnología sin nombrarla. */
   pista: string
   detalle: string
   fuente: string
 }
 
-// Mazo del mini-juego 08; cada caso tiene fuente verificable (referencias APA al final).
 export const CASOS: CasoReal[] = [
   {
     juego: 'Civilization VI',

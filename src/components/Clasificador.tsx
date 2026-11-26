@@ -7,21 +7,17 @@ export type ItemClasificable = { id: string; texto: string; destino: string; por
 export type DestinoClasificacion = { id: string; titulo: ReactNode; detalle?: ReactNode; pista?: ReactNode }
 
 type Props = {
-  /** Clave única del juego: su estado se guarda y sobrevive a F5. */
   id: string
   items: ItemClasificable[]
   destinos: DestinoClasificacion[]
   columnas?: string
-  /** Cartas por mano; si el mazo es más grande, se reparte al azar y aparece «Nuevas cartas». */
   porRonda?: number
-  /** Si la mano la reparte quien usa el componente (p. ej. también cambian los destinos). */
   onNuevasCartas?: () => void
 }
 
 const chip = 'min-h-9 rounded-[0.4rem] border px-3 text-left text-sm focus-visible:outline-2 focus-visible:outline-cyan'
 const accion = 'flex min-h-10 items-center gap-2 rounded-[0.4rem] px-4 text-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan'
 
-// Mini-juego: arrastrar (o clic en ficha + clic en destino) cada ficha a su grupo y comprobar.
 export default function Clasificador({ id, items: mazo, destinos, columnas = 'grid-cols-3', porRonda, onNuevasCartas }: Props) {
   const repartir = () => barajar(mazo).slice(0, porRonda ?? mazo.length)
   const [items, setItems] = usePersistentState(`${id}:mano`, repartir)
@@ -33,7 +29,6 @@ export default function Clasificador({ id, items: mazo, destinos, columnas = 'gr
   const [pistas, setPistas] = usePersistentState<Record<string, boolean>>(`${id}:pistas`, {})
   const iniciar = () => setInicio((t) => t ?? Date.now())
 
-  // Cronómetro: arranca con la primera ficha y se detiene al comprobar.
   useEffect(() => {
     if (inicio === null || comprobado) return
     const id = window.setInterval(() => setSegundos(Math.floor((Date.now() - inicio) / 1000)), 250)

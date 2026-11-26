@@ -3,12 +3,10 @@ import { CaretLeftIcon, CaretRightIcon } from '@phosphor-icons/react'
 const navigationButton = 'grid min-h-8 min-w-8 place-items-center rounded-[0.4rem] border border-white/20 hover:bg-white/5 disabled:text-muted disabled:hover:bg-transparent focus-visible:outline-2 focus-visible:outline-cyan'
 const pad = (n: number) => String(n).padStart(2, '0')
 
-// Color de cada bloque en la barra de guardado.
 const COLOR_BLOQUE = ['bg-fg', 'bg-amber', 'bg-cyan', 'bg-mint', 'bg-coral']
 
 type Props = { actual: number; bloques: number[]; onIr: (indice: number) => void }
 
-// Barra de progreso segmentada, como la de una partida guardándose.
 export default function SlideNav({ actual, bloques, onIr }: Props) {
   const total = bloques.length
 

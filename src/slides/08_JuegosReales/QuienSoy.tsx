@@ -18,7 +18,6 @@ const nuevaRonda = (): Ronda =>
 
 const pistasDe = (c: CasoReal) => [c.pista, `Tipo: ${c.tipo}.`, `Empieza por «${c.tecnologia[0]}» y tiene ${c.tecnologia.length} caracteres.`]
 
-// «¿Quién soy?»: se revelan pistas de a una; acertar con menos pistas da más puntos.
 export default function QuienSoy() {
   const [ronda, setRonda] = usePersistentState<Ronda>('quien-soy:ronda', nuevaRonda)
   const [paso, setPaso] = usePersistentState('quien-soy:paso', 0)

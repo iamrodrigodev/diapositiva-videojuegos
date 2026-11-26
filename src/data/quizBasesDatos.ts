@@ -1,7 +1,5 @@
 import type { PreguntaQuiz } from '../components/Quiz'
 
-// Banco del concurso de la diapositiva 07: cada ronda toma 5 al azar.
-// Cada pregunta se responde con lo explicado en las diapositivas 03-06 (sin trivia de marcas).
 export const QUIZ_BASES_DATOS: PreguntaQuiz[] = [
   { pregunta: 'Necesitas combinar «partidas» con «inventario» en una sola consulta. ¿Qué modelo lo hace de forma nativa con JOIN?', opciones: ['SQL relacional', 'NoSQL de documentos', 'Clave-valor', 'Grafo'], correcta: 'SQL relacional', explicacion: 'JOIN une tablas relacionadas mediante llaves: es la base del modelo relacional.' },
   { pregunta: 'El perfil de un jugador se guarda como un solo objeto JSON con sus logros y ajustes anidados. ¿Qué tipo de NoSQL es?', opciones: ['Documento', 'Clave-valor', 'Columnar', 'Grafo'], correcta: 'Documento', explicacion: 'Un documento guarda el objeto completo, con datos anidados y forma propia.' },

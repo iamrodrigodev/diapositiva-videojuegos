@@ -5,7 +5,6 @@ import LogoChip from '../../components/LogoChip'
 
 const ejemplo = 'mt-3 rounded-[0.4rem] bg-well p-2.5 font-mono text-[0.72rem] leading-normal text-fg'
 
-// Diagrama mínimo de grafo: jugadores como nodos, amistades como aristas.
 const GRAFO = (
   <svg viewBox="0 0 200 70" role="img" aria-label="Grafo: Ana es amiga de Luis y de Sofía; ambos son amigos de Leo" className="mt-3 w-full rounded-[0.4rem] bg-well">
     <g className="stroke-amber/60" strokeWidth="1.5">

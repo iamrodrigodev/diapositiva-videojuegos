@@ -1,4 +1,3 @@
-// Fisher-Yates: devuelve una copia mezclada sin sesgo.
 export function barajar<T>(lista: readonly T[]): T[] {
   const copia = [...lista]
   for (let i = copia.length - 1; i > 0; i--) {

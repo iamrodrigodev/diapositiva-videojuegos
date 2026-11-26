@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
 
-// useState que sobrevive a F5: guarda el valor en localStorage bajo una clave.
 export function usePersistentState<T>(clave: string, inicial: T | (() => T)) {
   const llave = `diapos:${clave}`
   const [valor, setValor] = useState<T>(() => {
@@ -9,7 +8,7 @@ export function usePersistentState<T>(clave: string, inicial: T | (() => T)) {
       try {
         return JSON.parse(guardado) as T
       } catch {
-        // Dato corrupto o de una versión anterior: se ignora y se usa el inicial.
+        localStorage.removeItem(llave)
       }
     }
     return inicial instanceof Function ? inicial() : inicial

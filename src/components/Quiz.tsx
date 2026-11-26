@@ -7,7 +7,6 @@ import { usePersistentState } from '../lib/usePersistentState'
 export type PreguntaQuiz = { pregunta: string; opciones: string[]; correcta: string; explicacion: string }
 
 type Props = {
-  /** Clave única: la partida sobrevive a F5. */
   id: string
   preguntas: PreguntaQuiz[]
   porRonda: number
@@ -19,7 +18,6 @@ type Ronda = { pregunta: number; opciones: string[] }[]
 const SIN_TIEMPO = '⌛'
 const LETRAS = ['A', 'B', 'C', 'D']
 
-// Concurso de opción múltiple con cuenta regresiva, racha y audio.
 export default function Quiz({ id, preguntas, porRonda, segundos = 20 }: Props) {
   const nuevaRonda = (): Ronda =>
     barajar(preguntas.map((_, i) => i)).slice(0, porRonda).map((i) => ({ pregunta: i, opciones: barajar(preguntas[i]!.opciones) }))
@@ -38,7 +36,6 @@ export default function Quiz({ id, preguntas, porRonda, segundos = 20 }: Props) 
   const terminado = paso >= ronda.length
   const restante = limite === null ? segundos : Math.max(0, Math.ceil((limite - ahora) / 1000))
 
-  // La cuenta regresiva corre mientras la pregunta está abierta.
   useEffect(() => {
     if (limite === null || elegida !== null) return
     const t = window.setInterval(() => setAhora(Date.now()), 200)
@@ -59,7 +56,6 @@ export default function Quiz({ id, preguntas, porRonda, segundos = 20 }: Props) 
     }
   }
 
-  // Tiempo agotado = respuesta incorrecta.
   useEffect(() => {
     if (limite !== null && elegida === null && restante === 0) responder(SIN_TIEMPO)
   })
@@ -72,7 +68,6 @@ export default function Quiz({ id, preguntas, porRonda, segundos = 20 }: Props) 
   }
   const reiniciar = () => { setRonda(nuevaRonda()); setPaso(0); setElegida(null); setPuntos(0); setAciertos(0); setRacha(0); setLimite(null) }
 
-  // Teclas 1-4 para responder desde el control del expositor.
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       const i = Number(e.key) - 1

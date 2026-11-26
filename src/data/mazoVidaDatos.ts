@@ -1,6 +1,5 @@
 import type { ItemClasificable } from '../components/Clasificador'
 
-// Mazo del mini-juego «¿Dónde vive cada dato?»: se reparten 7 cartas al azar por ronda.
 export const MAZO_VIDA_DATOS: ItemClasificable[] = [
   { id: 'balas', texto: 'Posición de las balas en pantalla', destino: 'escena', porque: 'cambia cada frame y no sirve fuera del nivel.' },
   { id: 'jefe', texto: 'Vida del jefe actual', destino: 'escena', porque: 'al salir del combate se vuelve a cargar desde cero.' },

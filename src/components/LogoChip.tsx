@@ -1,6 +1,5 @@
 import { LOGOS } from '../lib/logos'
 
-// Chip con el logo monocromo del motor (consistente con la paleta) y su nombre.
 export default function LogoChip({ nombre }: { nombre: string }) {
   const logo = LOGOS[nombre]
   return (
