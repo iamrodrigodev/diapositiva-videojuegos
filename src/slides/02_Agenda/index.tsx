@@ -1,4 +1,4 @@
-import { GameControllerIcon, TrophyIcon } from '@phosphor-icons/react'
+import { ChatsCircleIcon, GameControllerIcon } from '@phosphor-icons/react'
 import Reveal from '../../components/Reveal'
 import Slide from '../../components/Slide'
 
@@ -25,11 +25,11 @@ export default function Agenda() {
       <Reveal className="grid grid-cols-2 gap-4 max-[800px]:grid-cols-1">
         <div className="flex gap-3 rounded-lg border border-white/12 bg-panel p-4">
           <GameControllerIcon aria-hidden="true" size={34} className="shrink-0 text-amber" />
-          <p className="text-body"><strong className="text-fg">Cada bloque tiene juegos.</strong> Formen equipos: un voluntario por equipo responde y gana puntos.</p>
+          <p className="text-body"><strong className="text-fg">Cada bloque tiene juegos.</strong> En cada uno participa un voluntario del público.</p>
         </div>
         <div className="flex gap-3 rounded-lg border border-white/12 bg-panel p-4">
-          <TrophyIcon aria-hidden="true" size={34} className="shrink-0 text-coral" />
-          <p className="text-body">Los puntos se guardan en el <strong className="text-fg">Ranking en vivo</strong> del Bloque 4: al final, el podio.</p>
+          <ChatsCircleIcon aria-hidden="true" size={34} className="shrink-0 text-coral" />
+          <p className="text-body">Al final: <strong className="text-fg">conclusiones, preguntas</strong> y referencias.</p>
         </div>
       </Reveal>
       <Reveal className="font-mono text-sm text-muted">Hilo conductor: <span className="text-fg">Estación Norte</span>, nuestro juego de ejemplo.</Reveal>

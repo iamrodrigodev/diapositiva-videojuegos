@@ -28,9 +28,9 @@ import TopN from './26_TopN'
 import Posicion from './27_Posicion'
 import Limites from './28_Limites'
 import CompletaConsulta from './29_CompletaConsulta'
-import RankingVivo from './30_RankingVivo'
+import SeLaBaseDeDatos from './30_SeLaBaseDeDatos'
 import Conclusiones from './31_Conclusiones'
-import Podio from './32_Podio'
+import Preguntas from './32_Preguntas'
 import Referencias from './33_Referencias'
 
 export type Diapositiva = { Componente: ComponentType; bloque: 0 | 1 | 2 | 3 | 4 }
@@ -65,8 +65,8 @@ export const SLIDES: Diapositiva[] = [
   { Componente: Posicion, bloque: 4 },
   { Componente: Limites, bloque: 4 },
   { Componente: CompletaConsulta, bloque: 4 },
-  { Componente: RankingVivo, bloque: 4 },
+  { Componente: SeLaBaseDeDatos, bloque: 4 },
   { Componente: Conclusiones, bloque: 0 },
-  { Componente: Podio, bloque: 0 },
+  { Componente: Preguntas, bloque: 0 },
   { Componente: Referencias, bloque: 0 },
 ]
