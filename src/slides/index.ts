@@ -14,6 +14,13 @@ import DatabaseManager from './13_DatabaseManager'
 import ConsultasSeguras from './14_ConsultasSeguras'
 import EncuentraElBug from './15_EncuentraElBug'
 import ConectaLosCables from './16_ConectaLosCables'
+import QueGuardar from './17_QueGuardar'
+import ModeloDatos from './18_ModeloDatos'
+import Guardar from './19_Guardar'
+import Cargar from './20_Cargar'
+import Ranuras from './21_Ranuras'
+import GuardarORecalcular from './22_GuardarORecalcular'
+import SeFueLaLuz from './23_SeFueLaLuz'
 
 export type Diapositiva = { Componente: ComponentType; bloque: 0 | 1 | 2 | 3 | 4 }
 
@@ -33,4 +40,11 @@ export const SLIDES: Diapositiva[] = [
   { Componente: ConsultasSeguras, bloque: 2 },
   { Componente: EncuentraElBug, bloque: 2 },
   { Componente: ConectaLosCables, bloque: 2 },
+  { Componente: QueGuardar, bloque: 3 },
+  { Componente: ModeloDatos, bloque: 3 },
+  { Componente: Guardar, bloque: 3 },
+  { Componente: Cargar, bloque: 3 },
+  { Componente: Ranuras, bloque: 3 },
+  { Componente: GuardarORecalcular, bloque: 3 },
+  { Componente: SeFueLaLuz, bloque: 3 },
 ]
