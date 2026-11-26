@@ -10,9 +10,9 @@ const DESTINOS: DestinoClasificacion[] = CASOS.map((c) => ({
   titulo: c.juego,
   detalle: (
     <>
-      <p className="font-mono text-xs text-[#7eb8ff]">{c.tipo}</p>
+      <p className="font-mono text-xs text-cyan">{c.tipo}</p>
       <p className="mt-1">{c.detalle}</p>
-      <p className="mt-1 font-mono text-xs text-[#8997ad]">Fuente: {c.fuente}</p>
+      <p className="mt-1 font-mono text-xs text-muted">Fuente: {c.fuente}</p>
     </>
   ),
 }))

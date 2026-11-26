@@ -20,11 +20,12 @@ export default function Slide({ bloque, titulo, interactiva, children }: Props) 
       animate="show"
     >
       <motion.header variants={fadeUp}>
-        <p className="flex items-center gap-3 font-mono text-xs font-medium tracking-[0.19em] text-emerald-300 uppercase">
+        <p className="flex items-center gap-3 font-mono text-xs font-medium tracking-[0.2em] text-amber uppercase">
+          <span aria-hidden="true" className="size-2 rotate-45 bg-amber" />
           {bloque}
-          {interactiva && <span className="rounded-[0.3rem] border border-[#c1a5ff80] px-2 py-1 tracking-[0.12em] text-[#d6c6ff]">Interactiva</span>}
+          {interactiva && <span className="chamfer bg-amber px-2.5 py-1 font-bold tracking-[0.14em] text-ink">▶ Jugable</span>}
         </p>
-        <h1 className="mt-3 font-display text-[clamp(1.9rem,4.6vw,4rem)] leading-[1.05] font-bold tracking-[-0.05em] text-[#f4f8ff]">{titulo}</h1>
+        <h1 className="mt-3 font-display text-[clamp(1.9rem,4.4vw,3.75rem)] leading-[1.05] font-bold tracking-[-0.01em] text-fg uppercase">{titulo}</h1>
       </motion.header>
       {children}
     </motion.div>

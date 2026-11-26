@@ -5,8 +5,8 @@ import Reveal from '../../components/Reveal'
 import Slide from '../../components/Slide'
 
 const DESTINOS: DestinoClasificacion[] = [
-  { id: 'sql', titulo: <span className="text-[#7eb8ff]">SQL</span> },
-  { id: 'nosql', titulo: <span className="text-[#c1a5ff]">NoSQL</span> },
+  { id: 'sql', titulo: <span className="text-cyan">SQL</span> },
+  { id: 'nosql', titulo: <span className="text-amber">NoSQL</span> },
 ]
 
 const ITEMS: ItemClasificable[] = [

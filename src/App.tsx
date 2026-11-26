@@ -4,6 +4,7 @@ import SlideNav from './components/SlideNav'
 import { SLIDES } from './slides'
 
 const ultima = SLIDES.length - 1
+const BLOQUES = SLIDES.map((s) => s.bloque)
 
 export default function App() {
   const [actual, setActual] = useState(0)
@@ -20,15 +21,15 @@ export default function App() {
     return () => window.removeEventListener('keydown', onKey)
   }, [])
 
-  const Diapositiva = SLIDES[actual]
+  const Diapositiva = SLIDES[actual]?.Componente
 
   return (
-    <div className="grid min-h-dvh grid-rows-[1fr_auto] bg-[#0a0d17] font-sans antialiased">
-      <main className="presentation-grid grid items-center border-t-2 border-[#76e3c4] bg-[#0d1120]">
+    <div className="grid min-h-dvh grid-rows-[1fr_auto] bg-ink-deep font-sans antialiased">
+      <main className="presentation-grid grid items-center bg-ink">
         {Diapositiva && <Diapositiva key={actual} />}
       </main>
-      <footer className="relative flex min-h-14 items-center justify-center border-t border-white/12 bg-[#0a0d17] px-[clamp(0.75rem,3vw,2.5rem)] py-2 font-mono text-xs leading-none text-[#e0edff] tabular-nums max-[480px]:justify-between">
-        <SlideNav actual={actual} total={SLIDES.length} onIr={ir} />
+      <footer className="relative flex min-h-14 items-center justify-center border-t border-white/12 bg-ink-deep px-[clamp(0.75rem,3vw,2.5rem)] py-2 font-mono text-xs leading-none text-fg tabular-nums max-[480px]:justify-between">
+        <SlideNav actual={actual} bloques={BLOQUES} onIr={ir} />
         <LimaClock />
       </footer>
     </div>

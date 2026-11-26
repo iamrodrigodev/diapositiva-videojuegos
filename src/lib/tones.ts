@@ -1,17 +1,17 @@
-export type Tone = 'neutral' | 'emerald' | 'blue' | 'violet' | 'red'
+export type Tone = 'neutral' | 'mint' | 'cyan' | 'amber' | 'coral'
 
 export const TONE_BORDER: Record<Tone, string> = {
   neutral: 'border-white/12',
-  emerald: 'border-[#6ee7b780]',
-  blue: 'border-[#7eb8ff80]',
-  violet: 'border-[#c1a5ff80]',
-  red: 'border-[#f8717180]',
+  mint: 'border-mint/45',
+  cyan: 'border-cyan/45',
+  amber: 'border-amber/45',
+  coral: 'border-coral/45',
 }
 
 export const TONE_TEXT: Record<Tone, string> = {
-  neutral: 'text-[#f4f8ff]',
-  emerald: 'text-emerald-300',
-  blue: 'text-[#7eb8ff]',
-  violet: 'text-[#c1a5ff]',
-  red: 'text-[#fca5a5]',
+  neutral: 'text-fg',
+  mint: 'text-mint',
+  cyan: 'text-cyan',
+  amber: 'text-amber',
+  coral: 'text-coral',
 }

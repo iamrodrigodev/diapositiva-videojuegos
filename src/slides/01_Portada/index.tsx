@@ -1,7 +1,6 @@
 import { DatabaseIcon } from '@phosphor-icons/react'
 import { motion, useReducedMotion } from 'framer-motion'
 import { siUnity } from 'simple-icons'
-import '@fontsource-variable/space-grotesk'
 import { fadeUp, stagger } from '../../lib/motion'
 
 const INTEGRANTES = [
@@ -22,7 +21,7 @@ export default function Portada() {
       animate="show"
     >
       <motion.header variants={fadeUp}>
-        <div className="flex flex-wrap items-center gap-x-5 gap-y-3 text-sm font-medium text-slate-200">
+        <div className="flex flex-wrap items-center gap-x-5 gap-y-3 text-sm font-medium text-body">
           <span className="inline-flex items-center gap-2">
             <svg aria-hidden="true" viewBox="0 0 24 24" className="size-6 fill-current">
               <path d={siUnity.path} />
@@ -30,18 +29,18 @@ export default function Portada() {
             Unity
           </span>
           <span className="inline-flex items-center gap-2 border-l border-white/20 pl-5">
-            <DatabaseIcon aria-hidden="true" size={23} className="text-emerald-300" />
+            <DatabaseIcon aria-hidden="true" size={23} className="text-mint" />
             Bases de datos
           </span>
         </div>
-        <h1 className="mt-[clamp(1.25rem,3vh,2.5rem)] font-display text-[clamp(2.35rem,8.65vw,8rem)] leading-[1.04] font-bold tracking-[-0.07em] text-[#f4f8ff]">
-          Persistencia de datos <span className="block w-fit bg-[linear-gradient(105deg,#6ee7b7,#7eb8ff_65%,#c1a5ff)] bg-clip-text pr-[0.06em] pb-[0.1em] text-transparent">en videojuegos</span>
+        <h1 className="mt-[clamp(1.25rem,3vh,2.5rem)] font-display text-[clamp(2.35rem,8.65vw,8rem)] leading-[1.04] font-bold tracking-[-0.07em] text-fg">
+          Persistencia de datos <span className="block w-fit text-amber">en videojuegos</span>
         </h1>
       </motion.header>
 
-      <motion.div variants={fadeUp} className="w-fit max-w-full font-mono text-[0.85rem] leading-[1.4] text-[#e0edff] max-[480px]:text-xs">
-        <table className="border-collapse bg-[#101824] [&_:is(th,td)]:border [&_:is(th,td)]:border-[#344359] [&_:is(th,td)]:px-[clamp(0.45rem,1.5vw,1rem)] [&_:is(th,td)]:py-[0.45rem] [&_:is(th,td)]:text-left [&_th]:font-normal [&_th]:text-[#a8bdd9]">
-          <caption className="pb-[0.55rem] text-left text-emerald-200"><span className="inline-flex items-center gap-[0.55rem]"><DatabaseIcon aria-hidden="true" size={18} /> Progreso de la partida</span></caption>
+      <motion.div variants={fadeUp} className="w-fit max-w-full font-mono text-[0.85rem] leading-[1.4] text-fg max-[480px]:text-xs">
+        <table className="border-collapse bg-panel [&_:is(th,td)]:border [&_:is(th,td)]:border-line [&_:is(th,td)]:px-[clamp(0.45rem,1.5vw,1rem)] [&_:is(th,td)]:py-[0.45rem] [&_:is(th,td)]:text-left [&_th]:font-normal [&_th]:text-muted">
+          <caption className="pb-[0.55rem] text-left text-mint"><span className="inline-flex items-center gap-[0.55rem]"><DatabaseIcon aria-hidden="true" size={18} /> Progreso de la partida</span></caption>
           <thead>
             <tr><th scope="col">Partida</th><th scope="col">Nivel</th><th scope="col">Punto de control</th></tr>
           </thead>
@@ -50,11 +49,11 @@ export default function Portada() {
           </tbody>
         </table>
       </motion.div>
-      <motion.section variants={fadeUp} aria-labelledby="integrantes" className="portada-team border-t border-[#a2c1ff50] pt-[0.85rem]">
-        <h2 id="integrantes" className="font-mono text-xs font-medium tracking-[0.19em] text-emerald-300 uppercase">
+      <motion.section variants={fadeUp} aria-labelledby="integrantes" className="portada-team border-t border-line pt-[0.85rem]">
+        <h2 id="integrantes" className="font-mono text-xs font-medium tracking-[0.19em] text-mint uppercase">
           Integrantes
         </h2>
-        <ul className="mt-[0.65rem] grid grid-cols-4 gap-x-6 gap-y-3 text-[clamp(0.95rem,1.3vw,1.1rem)] leading-normal text-[#dbe5f7] max-[760px]:grid-cols-2">
+        <ul className="mt-[0.65rem] grid grid-cols-4 gap-x-6 gap-y-3 text-[clamp(0.95rem,1.3vw,1.1rem)] leading-normal text-fg max-[760px]:grid-cols-2">
           {INTEGRANTES.map((nombre) => <li key={nombre}>{nombre}</li>)}
         </ul>
       </motion.section>

@@ -17,7 +17,7 @@ export default function LimaClock() {
   }, [])
 
   return (
-    <span className="absolute right-[clamp(0.75rem,3vw,2.5rem)] flex items-center gap-[0.65rem] text-[#b9c7e0] max-[480px]:static">
+    <span className="absolute right-[clamp(0.75rem,3vw,2.5rem)] flex items-center gap-[0.65rem] text-body max-[480px]:static">
       <ClockIcon aria-hidden="true" size={16} />
       <time dateTime={time}>{time}</time>
       <span>Lima</span>
