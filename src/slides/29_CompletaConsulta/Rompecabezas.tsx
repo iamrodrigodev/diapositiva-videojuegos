@@ -1,5 +1,5 @@
 import { ArrowClockwiseIcon, ArrowRightIcon, CheckIcon, CrownIcon, SignOutIcon, TimerIcon, TrophyIcon } from '@phosphor-icons/react'
-import { Fragment } from 'react'
+import { Fragment, useState } from 'react'
 import Celebracion from '../../components/Celebracion'
 import { CONSULTAS_INCOMPLETAS } from '../../data/consultasIncompletas'
 import { barajar } from '../../lib/barajar'
@@ -22,6 +22,7 @@ export default function Rompecabezas() {
   const [aciertos, setAciertos] = usePersistentState('rompecabezas:aciertos', 0)
   const [record, setRecord] = usePersistentState('rompecabezas:record', 0)
   const reloj = useCronometro('rompecabezas:reloj')
+  const [elegido, setElegido] = useState<number | null>(null)
 
   const consulta = CONSULTAS_INCOMPLETAS[indice]
   const totalHuecos = CONSULTAS_INCOMPLETAS.reduce((n, c) => n + c.respuestas.length, 0)
@@ -33,6 +34,7 @@ export default function Rompecabezas() {
       setHuecos(CONSULTAS_INCOMPLETAS[i]!.respuestas.map(() => null))
     }
     setComprobado(false)
+    setElegido(null)
   }
   const reiniciar = () => { preparar(0); setAciertos(0); reloj.reiniciar() }
 
@@ -55,15 +57,21 @@ export default function Rompecabezas() {
   const llenos = huecos.every((h) => h !== null)
   const correctos = huecos.filter((h, i) => texto(h) === consulta.respuestas[i]).length
 
+  const destino = elegido ?? (huecos.indexOf(null) === -1 ? null : huecos.indexOf(null))
+
   const poner = (id: number) => {
-    if (comprobado) return
+    if (comprobado || destino === null) return
     reloj.iniciar()
-    const libre = huecos.indexOf(null)
-    if (libre === -1) return
-    setHuecos(huecos.map((h, i) => (i === libre ? id : h)))
+    const nuevos = huecos.map((h, i) => (i === destino ? id : h))
+    setHuecos(nuevos)
+    setElegido(null)
     sonido.pista()
   }
-  const quitar = (i: number) => { if (!comprobado) setHuecos(huecos.map((h, k) => (k === i ? null : h))) }
+  const tocarHueco = (i: number) => {
+    if (comprobado) return
+    if (i === destino && huecos[i] !== null) { setHuecos(huecos.map((h, k) => (k === i ? null : h))); return }
+    setElegido(i)
+  }
   const comprobar = () => {
     setComprobado(true)
     const total = aciertos + correctos
@@ -94,10 +102,10 @@ export default function Rompecabezas() {
               const id = huecos[i]!
               const color = comprobado
                 ? texto(id) === consulta.respuestas[i] ? 'border-mint bg-mint/20 text-mint' : 'border-coral bg-coral/20 text-coral'
-                : id !== null ? 'border-coral bg-coral/15 text-fg' : 'border-dashed border-white/40 text-muted'
+                : i === destino ? 'border-amber bg-amber/15 text-amber ring-2 ring-amber/40' : id !== null ? 'border-coral bg-coral/15 text-fg' : 'border-dashed border-white/40 text-muted'
               return (
-                <button type="button" onClick={() => quitar(i)} aria-label={id === null ? `Hueco ${i + 1} vacío` : `Quitar ${texto(id)}`} className={`mx-1 inline-flex min-w-20 justify-center rounded-[0.3rem] border-2 px-2 align-middle font-bold focus-visible:outline-2 focus-visible:outline-cyan ${color}`}>
-                  {id === null ? '____' : texto(id)}
+                <button type="button" onClick={() => tocarHueco(i)} aria-pressed={!comprobado && i === destino} aria-label={id === null ? `Hueco ${i + 1} vacío` : `Hueco ${i + 1}: ${texto(id)}`} className={`mx-1 inline-flex min-w-20 justify-center rounded-[0.3rem] border-2 px-2 align-middle font-bold focus-visible:outline-2 focus-visible:outline-cyan ${color}`}>
+                  {id === null ? (!comprobado && i === destino ? '▼ aquí' : '____') : texto(id)}
                 </button>
               )
             })()}
@@ -120,7 +128,7 @@ export default function Rompecabezas() {
         <p role="status" className="text-sm">
           {comprobado
             ? <span className={correctos === consulta.respuestas.length ? 'text-mint' : 'text-coral'}>{correctos === consulta.respuestas.length ? '✓ La consulta funciona. ' : `✗ ${correctos} de ${consulta.respuestas.length} bien. Correcto: ${consulta.respuestas.join(' · ')}. `}<span className="text-body">{consulta.explicacion}</span></span>
-            : <span className="text-muted">Toca una ficha para ponerla en el siguiente hueco; toca un hueco para devolverla. Sobran fichas.</span>}
+            : <span className="text-muted">Toca un hueco para elegirlo (se marca en ámbar) y luego la ficha que va ahí. Toca dos veces un hueco lleno para vaciarlo. Sobran fichas.</span>}
         </p>
       </div>
     </div>
