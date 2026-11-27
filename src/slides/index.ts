@@ -70,3 +70,6 @@ export const SLIDES: Diapositiva[] = [
   { Componente: Preguntas, bloque: 0 },
   { Componente: Referencias, bloque: 0 },
 ]
+
+export const INICIO_EXPOSICION = SLIDES.findIndex((s) => s.Componente === Agenda)
+export const FIN_EXPOSICION = SLIDES.findIndex((s) => s.Componente === Preguntas)

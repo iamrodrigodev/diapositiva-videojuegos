@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useState } from 'react'
 import AjusteAPantalla from './components/AjusteAPantalla'
-import LimaClock from './components/LimaClock'
+import Relojes from './components/Relojes'
 import SlideNav from './components/SlideNav'
-import { SLIDES } from './slides'
+import { FIN_EXPOSICION, INICIO_EXPOSICION, SLIDES } from './slides'
 
 const ultima = SLIDES.length - 1
 const BLOQUES = SLIDES.map((s) => s.bloque)
@@ -39,9 +39,10 @@ export default function App() {
       <main className="presentation-grid min-h-0 bg-ink">
         <AjusteAPantalla>{Diapositiva && <Diapositiva key={actual} />}</AjusteAPantalla>
       </main>
-      <footer className="relative flex min-h-14 items-center justify-center border-t border-white/12 bg-ink-deep px-[clamp(0.75rem,3vw,2.5rem)] py-2 font-mono text-xs leading-none text-fg tabular-nums max-[480px]:justify-between">
+      <footer className="grid min-h-14 grid-cols-[1fr_auto_1fr] items-center gap-4 border-t border-white/12 bg-ink-deep px-[clamp(0.75rem,3vw,2.5rem)] py-2 font-mono text-xs leading-none text-fg tabular-nums max-[480px]:flex max-[480px]:justify-between">
+        <span aria-hidden="true" />
         <SlideNav actual={actual} bloques={BLOQUES} onIr={ir} />
-        <LimaClock />
+        <Relojes actual={actual} inicio={INICIO_EXPOSICION} fin={FIN_EXPOSICION} />
       </footer>
     </div>
   )

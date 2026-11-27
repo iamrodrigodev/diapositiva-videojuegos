@@ -7,7 +7,7 @@ import BorrarProgreso from './BorrarProgreso'
 const INTEGRANTES = [
   'Rodrigo Emerson Infanzón Acosta',
   'Carlos Daniel Aguilar Chirinos',
-  'Abimael Frontado Fajardo',
+  'Abimael Ernesto Frontado Fajardo',
   'Esther Mariana Chunga Pacheco',
 ]
 
