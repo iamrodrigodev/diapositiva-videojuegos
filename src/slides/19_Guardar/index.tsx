@@ -5,8 +5,7 @@ const GUARDAR = `using Mono.Data.Sqlite;
 
 public static class Guardado {
   public static void Guardar(int jugadorId, int ranura, EstadoPartida e) {
-    using var con = new SqliteConnection(DatabaseManager.Conexion);
-    con.Open();
+    using var con = DatabaseManager.Abrir();
     using var tx = con.BeginTransaction();
     using var cmd = con.CreateCommand();
     cmd.Transaction = tx;
@@ -48,13 +47,13 @@ public static class Guardado {
 
 const PASOS: PasoCodigo[] = [
   { desde: 3, hasta: 4, titulo: 'Qué recibe', texto: <>El jugador, la ranura elegida y el <code>EstadoPartida</code> que armó el juego en ese momento.</> },
-  { desde: 5, hasta: 9, titulo: 'Todo en una transacción', texto: <>Partida e inventario se guardan juntos: si algo falla, no queda una partida con el inventario a medias.</> },
-  { desde: 11, hasta: 14, titulo: 'Insertar o actualizar (upsert)', texto: <>Si la ranura está vacía, <code>INSERT</code> crea la fila. Si ya existe, <code>ON CONFLICT … DO UPDATE</code> la sobrescribe. <code>datetime('now')</code> guarda la fecha. Requiere SQLite 3.24 o superior.</> },
-  { desde: 15, hasta: 20, titulo: 'Los valores, como parámetros', texto: <>Cada dato del estado va en su parámetro: nada concatenado.</> },
-  { desde: 22, hasta: 23, titulo: '¿Qué id tiene la partida?', texto: <>Se reutilizan <code>@jugador</code> y <code>@ranura</code> para obtener el <code>id</code> de la fila, nueva o actualizada. <code>ExecuteScalar()</code> devuelve ese único valor.</> },
-  { desde: 25, hasta: 28, titulo: 'Vaciar el inventario anterior', texto: <>Se borran los objetos que tenía esa ranura: el inventario se reescribe completo con el estado actual.</> },
-  { desde: 30, hasta: 37, titulo: 'Escribir cada objeto', texto: <>La sentencia se prepara una vez; en cada vuelta solo cambian <code>item</code> y <code>cantidad</code>.</> },
-  { desde: 38, hasta: 42, titulo: 'Confirmar o deshacer', texto: <><code>Commit()</code> deja todo en disco de una vez. Ante un error, <code>Rollback()</code> deja la ranura como estaba y <code>throw</code> avisa al juego para mostrar un mensaje.</> },
+  { desde: 5, hasta: 8, titulo: 'Todo en una transacción', texto: <>Partida e inventario se guardan juntos: si algo falla, no queda una partida con el inventario a medias.</> },
+  { desde: 10, hasta: 13, titulo: 'Insertar o actualizar (upsert)', texto: <>Si la ranura está vacía, <code>INSERT</code> crea la fila. Si ya existe, <code>ON CONFLICT … DO UPDATE</code> la sobrescribe. <code>datetime('now')</code> guarda la fecha. Requiere SQLite 3.24 o superior.</> },
+  { desde: 14, hasta: 19, titulo: 'Los valores, como parámetros', texto: <>Cada dato del estado va en su parámetro: nada concatenado.</> },
+  { desde: 21, hasta: 22, titulo: '¿Qué id tiene la partida?', texto: <>Se reutilizan <code>@jugador</code> y <code>@ranura</code> para obtener el <code>id</code> de la fila, nueva o actualizada. <code>ExecuteScalar()</code> devuelve ese único valor.</> },
+  { desde: 24, hasta: 27, titulo: 'Vaciar el inventario anterior', texto: <>Se borran los objetos que tenía esa ranura: el inventario se reescribe completo con el estado actual.</> },
+  { desde: 29, hasta: 36, titulo: 'Escribir cada objeto', texto: <>La sentencia se prepara una vez; en cada vuelta solo cambian <code>item</code> y <code>cantidad</code>.</> },
+  { desde: 37, hasta: 41, titulo: 'Confirmar o deshacer', texto: <><code>Commit()</code> deja todo en disco de una vez. Ante un error, <code>Rollback()</code> deja la ranura como estaba y <code>throw</code> avisa al juego para mostrar un mensaje.</> },
 ]
 
 export default function Guardar() {

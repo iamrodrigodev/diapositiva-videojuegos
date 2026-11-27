@@ -6,13 +6,13 @@ export type CodigoConBugs = {
 
 export const CODIGOS_CON_BUGS: CodigoConBugs[] = [
   {
-    titulo: 'Buscar un jugador por nombre',
+    titulo: 'Buscar un objeto por nombre',
     lineas: [
-      'public string BuscarNivel(string nombre) {',
+      'public string BuscarTipo(string nombre) {',
       '  var con = new SqliteConnection(DatabaseManager.Conexion);',
       '  con.Open();',
       '  var cmd = con.CreateCommand();',
-      '  cmd.CommandText = "SELECT nivel FROM jugadores WHERE nombre = \'" + nombre + "\'";',
+      '  cmd.CommandText = "SELECT tipo_id FROM objetos WHERE nombre = \'" + nombre + "\'";',
       '  return cmd.ExecuteScalar()?.ToString();',
       '}',
     ],
@@ -92,18 +92,18 @@ export const CODIGOS_CON_BUGS: CodigoConBugs[] = [
     },
   },
   {
-    titulo: 'Guardar el volumen',
+    titulo: 'Borrar una sesión',
     lineas: [
-      'public void GuardarVolumen(float volumen) {',
+      'public void BorrarSesion(int id) {',
       '  using var con = new SqliteConnection(DatabaseManager.Conexion);',
       '  using var cmd = con.CreateCommand();',
-      '  cmd.CommandText = "UPDATE ajustes SET volumen = " + volumen;',
+      '  cmd.CommandText = "DELETE FROM sesiones WHERE id = " + id;',
       '  cmd.ExecuteNonQuery();',
       '  con.Open();',
       '}',
     ],
     bugs: {
-      3: 'Valor concatenado: debe ir como parámetro @volumen (además evita errores con la coma decimal).',
+      3: 'Valor concatenado: debe ir como parámetro @id, aunque sea un número.',
       5: 'Abre la conexión después de ejecutar: ExecuteNonQuery falla porque la conexión aún estaba cerrada.',
     },
   },

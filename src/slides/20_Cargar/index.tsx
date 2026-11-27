@@ -5,8 +5,7 @@ const CARGAR = `using Mono.Data.Sqlite;
 
 public static class Carga {
   public static EstadoPartida Cargar(int jugadorId, int ranura) {
-    using var con = new SqliteConnection(DatabaseManager.Conexion);
-    con.Open();
+    using var con = DatabaseManager.Abrir();
     using var cmd = con.CreateCommand();
     cmd.CommandText = "SELECT id, nivel, checkpoint, vida FROM partidas WHERE jugador_id = @jugador AND ranura = @ranura";
     cmd.Parameters.AddWithValue("@jugador", jugadorId);
@@ -33,11 +32,11 @@ public static class Carga {
 }`
 
 const PASOS_CARGAR: PasoCodigo[] = [
-  { desde: 4, hasta: 10, titulo: 'Buscar la ranura', texto: <>Un <code>SELECT</code> con <code>WHERE</code> pide solo la partida de ese jugador en esa ranura.</> },
-  { desde: 12, hasta: 15, titulo: '¿Ranura vacía?', texto: <>Si <code>Read()</code> no encuentra fila, la ranura está vacía y el método devuelve <code>null</code>: el juego decide qué hacer.</> },
-  { desde: 16, hasta: 20, titulo: 'Llenar el estado', texto: <>Cada columna pasa a su campo. <code>IsDBNull</code> cubre el checkpoint vacío (una partida recién empezada).</> },
-  { desde: 22, hasta: 27, titulo: 'Recuperar el inventario', texto: <>Con el <code>id</code> de la partida se piden sus objetos y se agregan al diccionario uno por uno.</> },
-  { desde: 28, hasta: 28, titulo: 'Listo', texto: <>Devuelve un <code>EstadoPartida</code> idéntico al que se guardó. Lo derivado (vida máxima, peso…) se recalcula después.</> },
+  { desde: 4, hasta: 9, titulo: 'Buscar la ranura', texto: <>Un <code>SELECT</code> con <code>WHERE</code> pide solo la partida de ese jugador en esa ranura.</> },
+  { desde: 11, hasta: 14, titulo: '¿Ranura vacía?', texto: <>Si <code>Read()</code> no encuentra fila, la ranura está vacía y el método devuelve <code>null</code>: el juego decide qué hacer.</> },
+  { desde: 15, hasta: 19, titulo: 'Llenar el estado', texto: <>Cada columna pasa a su campo. <code>IsDBNull</code> cubre el checkpoint vacío (una partida recién empezada).</> },
+  { desde: 21, hasta: 26, titulo: 'Recuperar el inventario', texto: <>Con el <code>id</code> de la partida se piden sus objetos y se agregan al diccionario uno por uno.</> },
+  { desde: 27, hasta: 27, titulo: 'Listo', texto: <>Devuelve un <code>EstadoPartida</code> idéntico al que se guardó. Lo derivado (vida máxima, peso…) se recalcula después.</> },
 ]
 
 const USAR = `using UnityEngine;

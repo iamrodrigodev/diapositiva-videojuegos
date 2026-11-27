@@ -4,8 +4,7 @@ import Slide from '../../components/Slide'
 import Tabs from '../../components/Tabs'
 
 const POSICION = `public static int Posicion(int jugadorId, int nivel) {
-  using var con = new SqliteConnection(DatabaseManager.Conexion);
-  con.Open();
+  using var con = DatabaseManager.Abrir();
   using var cmd = con.CreateCommand();
   cmd.CommandText = @"SELECT posicion FROM (
       SELECT jugador_id, RANK() OVER (ORDER BY puntaje DESC) AS posicion
@@ -19,9 +18,9 @@ const POSICION = `public static int Posicion(int jugadorId, int nivel) {
 
 const PASOS_POSICION: PasoCodigo[] = [
   { desde: 1, hasta: 1, titulo: 'Otro método de Ranking', texto: <>Se agrega a la clase <code>Ranking</code> de la diapositiva anterior.</> },
-  { desde: 6, hasta: 7, titulo: 'Numerar a todos', texto: <><code>RANK() OVER (ORDER BY puntaje DESC)</code> le da a cada fila su puesto. Si dos empatan, comparten el puesto. Requiere SQLite 3.25 o superior.</> },
-  { desde: 5, hasta: 8, titulo: 'Quedarse con el mío', texto: <>La consulta de afuera busca, entre todos los puestos, solo el del jugador: «quedaste #7» aunque no esté en el top 10.</> },
-  { desde: 11, hasta: 12, titulo: 'Sin puntaje', texto: <>Si el jugador nunca terminó ese nivel no hay fila: <code>ExecuteScalar()</code> devuelve <code>null</code> y el método responde 0.</> },
+  { desde: 5, hasta: 6, titulo: 'Numerar a todos', texto: <><code>RANK() OVER (ORDER BY puntaje DESC)</code> le da a cada fila su puesto. Si dos empatan, comparten el puesto. Requiere SQLite 3.25 o superior.</> },
+  { desde: 4, hasta: 7, titulo: 'Quedarse con el mío', texto: <>La consulta de afuera busca, entre todos los puestos, solo el del jugador: «quedaste #7» aunque no esté en el top 10.</> },
+  { desde: 10, hasta: 11, titulo: 'Sin puntaje', texto: <>Si el jugador nunca terminó ese nivel no hay fila: <code>ExecuteScalar()</code> devuelve <code>null</code> y el método responde 0.</> },
 ]
 
 const PANTALLA = `using TMPro;
@@ -53,7 +52,7 @@ const PASOS_PANTALLA: PasoCodigo[] = [
   { desde: 18, hasta: 19, titulo: 'Tu puesto aparte', texto: <>Debajo de la lista se muestra la posición del jugador, aunque esté lejos del top 10.</> },
 ]
 
-const FILAS: [string, number, boolean?][] = [['ana', 12040], ['leo', 11870], ['luis', 10400], ['sofia', 9990], ['mia', 9100]]
+const FILAS: [string, number][] = [['ana', 12040], ['leo', 11870], ['luis', 10400], ['sofia', 9990]]
 
 function Maqueta() {
   return (
@@ -66,7 +65,7 @@ function Maqueta() {
           </li>
         ))}
       </ol>
-      <p className="border-t border-white/10 py-3 text-center font-mono text-mint">Tu puesto: #7</p>
+      <p className="border-t border-white/10 py-3 text-center font-mono text-mint">Tu puesto (leo): #2</p>
     </div>
   )
 }

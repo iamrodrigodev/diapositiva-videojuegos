@@ -3,7 +3,7 @@ import CodeBlock from '../../components/CodeBlock'
 
 const CLASES: [string, string, string][] = [
   ['INTEGER', 'Números enteros', 'nivel = 7 · puntaje = 9850'],
-  ['REAL', 'Números con decimales', 'volumen = 0.8'],
+  ['REAL', 'Números con decimales', 'mejor_tiempo = 92.5'],
   ['TEXT', 'Texto', 'checkpoint = «Estación norte»'],
   ['BLOB', 'Bytes tal cual', 'captura de la partida (imagen)'],
   ['NULL', 'Sin valor', 'ranura vacía'],

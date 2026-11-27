@@ -3,9 +3,9 @@ import CodeBlock from '../../components/CodeBlock'
 import LogoChip from '../../components/LogoChip'
 
 const DOCUMENTO = `{
-  "id": 42, "nivel": 7,
-  "checkpoint": "Estación norte",
-  "inventario": [ "Linterna", "Llave roja" ]
+  "id": 2, "nombre": "Llave roja",
+  "precio": 50,
+  "tipo": { "id": 2, "nombre": "llave" }
 }`
 
 const COMPARACION: [string, string, string][] = [
@@ -19,9 +19,9 @@ const COMPARACION: [string, string, string][] = [
 export default function Comparacion() {
   return (
     <div className="grid grid-cols-[2fr_3fr] gap-4 max-[900px]:grid-cols-1">
-      <Card tone="amber" title="La misma partida 42 en NoSQL">
-        <p className="mt-2 text-sm">En vez de dos tablas relacionadas, <strong>un solo documento</strong> con el inventario anidado. Se lee de una vez, pero no se puede consultar «todos los ítems de todas las partidas» tan fácilmente.</p>
-        <CodeBlock code={DOCUMENTO} label="Partida 42 como documento JSON" />
+      <Card tone="amber" title="El mismo objeto en NoSQL">
+        <p className="mt-2 text-sm">En vez de dos tablas relacionadas, <strong>un solo documento</strong> con el tipo anidado. Se lee de una vez, pero el tipo queda copiado en cada objeto: si cambia, hay que corregir todos.</p>
+        <CodeBlock code={DOCUMENTO} label="La Llave roja como documento JSON" />
       </Card>
       <div className="overflow-x-auto">
         <table className="w-full border-collapse text-left text-sm text-fg [&_:is(th,td)]:border [&_:is(th,td)]:border-line [&_:is(th,td)]:px-3 [&_:is(th,td)]:py-1.5">
