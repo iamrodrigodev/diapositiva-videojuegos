@@ -59,9 +59,9 @@ public static class PartidaActual {
 }`
 
 const PASOS_USAR: PasoCodigo[] = [
-  { desde: 5, hasta: 6, titulo: 'El botón de la ranura', texto: <>Cada botón del menú llama a este método con su número de ranura.</> },
+  { desde: 5, hasta: 6, titulo: 'El botón de la ranura', texto: <>Cada botón del menú llama a este método con su número de ranura. El botón «Continuar» llama con la ranura 0: la del autoguardado.</> },
   { desde: 7, hasta: 10, titulo: 'Ranura vacía', texto: <>Si no hay partida, se crea un estado inicial: nivel 1 y vida completa.</> },
-  { desde: 11, hasta: 11, titulo: 'Pasarlo a la escena', texto: <>Al cambiar de escena, los objetos se destruyen (nivel 1 del Bloque 1). Un campo <code>static</code> conserva el estado durante la sesión.</> },
+  { desde: 11, hasta: 11, titulo: 'Pasarlo a la escena', texto: <>Al cambiar de escena, los objetos se destruyen (el nivel de vida «escena» del Bloque 1). Un campo <code>static</code> conserva el estado durante la sesión.</> },
   { desde: 12, hasta: 12, titulo: 'Cargar el nivel', texto: <>La escena del nivel lee <code>PartidaActual.Estado</code> y coloca al jugador en el checkpoint con su vida e inventario.</> },
 ]
 

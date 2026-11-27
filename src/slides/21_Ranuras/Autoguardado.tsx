@@ -15,7 +15,7 @@ public class Checkpoint : MonoBehaviour {
 
 public class AutoguardadoMovil : MonoBehaviour {
   void OnApplicationPause(bool pausado) {
-    if (pausado) Guardado.Guardar(1, 0, PartidaActual.Estado);
+    if (pausado && PartidaActual.Estado != null) Guardado.Guardar(1, 0, PartidaActual.Estado);
   }
 }`
 
@@ -23,7 +23,7 @@ const PASOS: PasoCodigo[] = [
   { desde: 3, hasta: 4, titulo: 'Un checkpoint en la escena', texto: <>Un objeto invisible que el jugador atraviesa. Su <code>nombre</code> es el lugar que se guarda.</> },
   { desde: 6, hasta: 8, titulo: 'Detectar al jugador', texto: <>Cuando el jugador lo cruza, se anota el checkpoint en la partida en memoria.</> },
   { desde: 9, hasta: 9, titulo: 'Guardar en la ranura 0', texto: <>Se reutiliza <code>Guardado.Guardar</code> (diapositiva 19). La ranura 0 es solo del autoguardado: no pisa las ranuras del jugador.</> },
-  { desde: 13, hasta: 17, titulo: 'Al minimizar en el móvil', texto: <>El sistema puede cerrar la app sin avisar. <code>OnApplicationPause(true)</code> llega al pasar a segundo plano: es el último momento seguro.</> },
+  { desde: 13, hasta: 17, titulo: 'Al minimizar en el móvil', texto: <>El sistema puede cerrar la app sin avisar. <code>OnApplicationPause(true)</code> llega al pasar a segundo plano: es el último momento seguro. Si aún está en el menú, no hay partida que guardar.</> },
 ]
 
 const CAMINO = ['Muelle sur', 'Estación norte', 'Faro']
