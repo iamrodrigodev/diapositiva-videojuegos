@@ -1,6 +1,7 @@
 import { ArrowCounterClockwiseIcon, CheckIcon, LightbulbIcon, ShuffleIcon, TimerIcon } from '@phosphor-icons/react'
-import { useEffect, useState, type DragEvent, type ReactNode } from 'react'
+import { useState, type DragEvent, type ReactNode } from 'react'
 import { barajar } from '../lib/barajar'
+import { useCronometro } from '../lib/useCronometro'
 import { usePersistentState } from '../lib/usePersistentState'
 
 export type ItemClasificable = { id: string; texto: string; destino: string; porque?: string }
@@ -25,16 +26,9 @@ export default function Clasificador({ id, items: mazo, destinos, columnas = 'gr
   const [ubicacion, setUbicacion] = usePersistentState<Record<string, string>>(`${id}:ubicacion`, {})
   const [seleccion, setSeleccion] = useState<string | null>(null)
   const [comprobado, setComprobado] = usePersistentState(`${id}:comprobado`, false)
-  const [inicio, setInicio] = usePersistentState<number | null>(`${id}:inicio`, null)
-  const [segundos, setSegundos] = usePersistentState(`${id}:segundos`, 0)
+  const reloj = useCronometro(`${id}:reloj`)
+  const segundos = reloj.segundos
   const [pistas, setPistas] = usePersistentState<Record<string, boolean>>(`${id}:pistas`, {})
-  const iniciar = () => setInicio((t) => t ?? Date.now())
-
-  useEffect(() => {
-    if (inicio === null || comprobado) return
-    const id = window.setInterval(() => setSegundos(Math.floor((Date.now() - inicio) / 1000)), 250)
-    return () => window.clearInterval(id)
-  }, [inicio, comprobado, setSegundos])
 
   const colocar = (itemId: string, destinoId: string | null) => {
     setUbicacion((u) => {
@@ -45,10 +39,10 @@ export default function Clasificador({ id, items: mazo, destinos, columnas = 'gr
     })
     setSeleccion(null)
     setComprobado(false)
-    iniciar()
+    reloj.continuar()
   }
 
-  const reiniciar = () => { setUbicacion({}); setComprobado(false); setSeleccion(null); setInicio(null); setSegundos(0) }
+  const reiniciar = () => { setUbicacion({}); setComprobado(false); setSeleccion(null); reloj.reiniciar() }
   const nuevasCartas = () => { if (onNuevasCartas) onNuevasCartas(); else setItems(repartir()); reiniciar(); setPistas({}) }
   const hayMasCartas = onNuevasCartas !== undefined || (porRonda !== undefined && porRonda < mazo.length)
 
@@ -70,8 +64,8 @@ export default function Clasificador({ id, items: mazo, destinos, columnas = 'gr
         key={item.id}
         type="button"
         draggable
-        onDragStart={(e) => { e.dataTransfer.setData('text/plain', item.id); iniciar() }}
-        onClick={() => { if (lugar) colocar(item.id, null); else { setSeleccion(seleccion === item.id ? null : item.id); iniciar() } }}
+        onDragStart={(e) => { e.dataTransfer.setData('text/plain', item.id); reloj.continuar() }}
+        onClick={() => { if (lugar) colocar(item.id, null); else { setSeleccion(seleccion === item.id ? null : item.id); reloj.continuar() } }}
         aria-pressed={seleccion === item.id}
         className={`${chip} cursor-grab ${color}`}
       >
@@ -118,7 +112,7 @@ export default function Clasificador({ id, items: mazo, destinos, columnas = 'gr
       </div>
 
       <div className="flex flex-wrap items-center gap-3">
-        <button type="button" onClick={() => setComprobado(true)} disabled={sueltos.length > 0} className={`${accion} chamfer bg-amber font-bold text-ink hover:brightness-110 disabled:opacity-40`}>
+        <button type="button" onClick={() => { setComprobado(true); reloj.detener() }} disabled={sueltos.length > 0} className={`${accion} chamfer bg-amber font-bold text-ink hover:brightness-110 disabled:opacity-40`}>
           <CheckIcon aria-hidden="true" size={16} /> Comprobar
         </button>
         <button type="button" onClick={reiniciar} className={`${accion} border border-white/20 text-fg hover:bg-white/5`}>

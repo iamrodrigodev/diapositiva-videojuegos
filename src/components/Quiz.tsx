@@ -1,7 +1,8 @@
 import { ArrowClockwiseIcon, ArrowRightIcon, FireIcon, SignOutIcon, TrophyIcon } from '@phosphor-icons/react'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { barajar } from '../lib/barajar'
 import { sonido } from '../lib/sonido'
+import { useCronometro } from '../lib/useCronometro'
 import { usePersistentState } from '../lib/usePersistentState'
 
 export type PreguntaQuiz = { pregunta: string; opciones: string[]; correcta: string; explicacion: string }
@@ -28,23 +29,18 @@ export default function Quiz({ id, preguntas, porRonda, segundos = 20 }: Props) 
   const [puntos, setPuntos] = usePersistentState(`${id}:puntos`, 0)
   const [aciertos, setAciertos] = usePersistentState(`${id}:aciertos`, 0)
   const [racha, setRacha] = usePersistentState(`${id}:racha`, 0)
-  const [limite, setLimite] = usePersistentState<number | null>(`${id}:limite`, null)
-  const [ahora, setAhora] = useState(() => Date.now())
+  const [enJuego, setEnJuego] = usePersistentState(`${id}:en-juego`, false)
+  const reloj = useCronometro(`${id}:pregunta`)
 
   const actual = ronda[paso]
   const datos = actual ? preguntas[actual.pregunta] : undefined
   const terminado = paso >= ronda.length
-  const restante = limite === null ? segundos : Math.max(0, Math.ceil((limite - ahora) / 1000))
-
-  useEffect(() => {
-    if (limite === null || elegida !== null) return
-    const t = window.setInterval(() => setAhora(Date.now()), 200)
-    return () => window.clearInterval(t)
-  }, [limite, elegida])
+  const restante = enJuego ? Math.max(0, segundos - reloj.segundos) : segundos
 
   const responder = (opcion: string) => {
     if (!datos || elegida !== null) return
     setElegida(opcion)
+    reloj.detener()
     if (opcion === datos.correcta) {
       sonido.acierto()
       setPuntos((p) => p + 100 + restante * 5 + racha * 20)
@@ -57,21 +53,21 @@ export default function Quiz({ id, preguntas, porRonda, segundos = 20 }: Props) 
   }
 
   useEffect(() => {
-    if (limite !== null && elegida === null && restante === 0) responder(SIN_TIEMPO)
+    if (enJuego && elegida === null && restante === 0) responder(SIN_TIEMPO)
   })
 
-  const empezar = () => { setLimite(Date.now() + segundos * 1000); setAhora(Date.now()) }
+  const empezar = () => { setEnJuego(true); reloj.reiniciar(); reloj.continuar() }
   const siguiente = () => {
     setElegida(null)
     setPaso((p) => p + 1)
-    if (paso + 1 >= ronda.length) { setLimite(null); sonido.victoria() } else empezar()
+    if (paso + 1 >= ronda.length) { setEnJuego(false); sonido.victoria() } else empezar()
   }
-  const reiniciar = () => { setRonda(nuevaRonda()); setPaso(0); setElegida(null); setPuntos(0); setAciertos(0); setRacha(0); setLimite(null) }
+  const reiniciar = () => { setRonda(nuevaRonda()); setPaso(0); setElegida(null); setPuntos(0); setAciertos(0); setRacha(0); setEnJuego(false); reloj.reiniciar() }
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       const i = Number(e.key) - 1
-      if (actual && limite !== null && i >= 0 && i < actual.opciones.length) responder(actual.opciones[i]!)
+      if (actual && enJuego && i >= 0 && i < actual.opciones.length) responder(actual.opciones[i]!)
     }
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
@@ -104,7 +100,7 @@ export default function Quiz({ id, preguntas, porRonda, segundos = 20 }: Props) 
     <div className="grid gap-4 rounded-lg border border-white/12 bg-panel p-5">
       <div className="flex flex-wrap items-center justify-between gap-3">
         {marcador}
-        {(limite !== null || paso > 0) && (
+        {(enJuego || paso > 0) && (
           <button type="button" onClick={reiniciar} className="flex min-h-9 items-center gap-2 rounded-[0.4rem] border border-white/20 px-3 text-sm text-body hover:border-coral hover:text-coral focus-visible:outline-2 focus-visible:outline-cyan">
             <SignOutIcon aria-hidden="true" size={16} /> Salir del juego
           </button>
@@ -117,7 +113,7 @@ export default function Quiz({ id, preguntas, porRonda, segundos = 20 }: Props) 
 
       <p className="font-display text-[clamp(1.3rem,2.3vw,2rem)] leading-tight font-bold text-fg">{datos.pregunta}</p>
 
-      {limite === null ? (
+      {!enJuego ? (
         <button type="button" onClick={empezar} className="chamfer flex min-h-12 w-fit items-center gap-2 bg-amber px-6 font-bold text-ink hover:brightness-110 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan">
           ▶ Empezar ({segundos} s por pregunta)
         </button>
