@@ -22,6 +22,7 @@ export default function CazaBugs() {
   const [pista, setPista] = usePersistentState<number | null>('caza-bugs:pista', null)
   const [puntos, setPuntos] = usePersistentState('caza-bugs:puntos', 0)
   const [record, setRecord] = usePersistentState('caza-bugs:record', 0)
+  const [previo, setPrevio] = usePersistentState('caza-bugs:record-previo', 0)
   const reloj = useCronometro('caza-bugs:reloj')
 
   const codigo = CODIGOS_CON_BUGS[ronda[paso] ?? -1]
@@ -31,11 +32,11 @@ export default function CazaBugs() {
   if (!codigo) {
     return (
       <div role="status" className="relative grid justify-items-center gap-3 rounded-lg border border-cyan/45 bg-panel p-8 text-center">
-        <Celebracion activa={puntos > 0 && puntos >= record} />
+        <Celebracion activa={puntos > previo} />
         <TrophyIcon aria-hidden="true" size={56} className="text-cyan" />
         <p className="font-display text-4xl font-bold text-fg uppercase">{puntos} puntos</p>
         <p className="text-body">{POR_RONDA} códigos revisados en {formatoTiempo(reloj.segundos)}</p>
-        <p className="flex items-center gap-2 font-mono text-sm text-amber"><CrownIcon aria-hidden="true" size={18} /> Récord: {record} pts {puntos >= record && puntos > 0 && '· ¡nuevo récord!'}</p>
+        <p className="flex items-center gap-2 font-mono text-sm text-amber"><CrownIcon aria-hidden="true" size={18} /> Récord: {record} pts {puntos > previo && '· ¡nuevo récord!'}</p>
         <button type="button" onClick={nueva} className={accion}><ShuffleIcon aria-hidden="true" size={18} /> Nuevos códigos</button>
       </div>
     )
@@ -72,6 +73,7 @@ export default function CazaBugs() {
     setPaso(paso + 1)
     if (paso + 1 >= ronda.length) {
       reloj.detener()
+      setPrevio(record)
       setRecord((r) => Math.max(r, puntos))
       sonido.victoria()
     }

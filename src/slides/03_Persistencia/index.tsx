@@ -6,7 +6,7 @@ import Slide from '../../components/Slide'
 import Tabs from '../../components/Tabs'
 
 const RUTAS: [string, string, string][] = [
-  ['Application.dataPath', 'Archivos del juego instalado (carpeta <juego>_Data en Windows).', 'Solo lectura en el build: no sirve para guardar.'],
+  ['Application.dataPath', 'Archivos del juego instalado (carpeta <juego>_Data en Windows).', 'No: en móvil es de solo lectura y en PC se reemplaza al actualizar.'],
   ['Application.streamingAssetsPath', 'Archivos que viajan dentro del build tal cual (p. ej. una base de datos inicial).', 'Solo lectura; en Android está dentro del APK.'],
   ['Application.persistentDataPath', 'Carpeta del usuario con permiso de escritura que sobrevive a las actualizaciones.', 'Sí: aquí se guardan las partidas.'],
 ]

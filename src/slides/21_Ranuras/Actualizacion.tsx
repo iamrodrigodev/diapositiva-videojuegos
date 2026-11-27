@@ -19,7 +19,7 @@ cmd.ExecuteNonQuery();`
 const PASOS: PasoCodigo[] = [
   { desde: 1, hasta: 2, titulo: '¿De qué versión es este archivo?', texto: <>SQLite guarda un número dentro del archivo: <code>user_version</code>. Un archivo nuevo empieza en 0.</> },
   { desde: 4, hasta: 7, titulo: 'Jugador nuevo', texto: <>Si es 0, el juego nunca se abrió: se crean las tablas de la diapositiva 18.</> },
-  { desde: 8, hasta: 11, titulo: 'Jugador de la versión 1.0', texto: <>Si es 1, le falta la columna de monedas: <code>ALTER TABLE … ADD COLUMN</code> la agrega <strong>sin tocar sus partidas</strong>, con 0 monedas.</> },
+  { desde: 8, hasta: 11, titulo: 'Jugador de la versión 1.0', texto: <>Si es 1 (la versión 1.0 del juego anotaba <code>user_version = 1</code>), le falta la columna de monedas: <code>ALTER TABLE … ADD COLUMN</code> la agrega <strong>sin tocar sus partidas</strong>, con 0 monedas.</> },
   { desde: 12, hasta: 13, titulo: 'Anotar la versión', texto: <>Se guarda el 2: la próxima vez estos pasos se saltan. Todo esto va en el <code>DatabaseManager</code>, al abrir la base.</> },
 ]
 

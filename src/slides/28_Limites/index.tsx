@@ -8,7 +8,7 @@ import { usePersistentState } from '../../lib/usePersistentState'
 const LIMITES: { icono: Icon; titulo: string; texto: string }[] = [
   { icono: DeviceMobileIcon, titulo: 'No es global', texto: 'Cada dispositivo tiene su propio .db: tu ranking no ve el de tus amigos.' },
   { icono: PencilSimpleIcon, titulo: 'Se puede editar', texto: 'El archivo está en el dispositivo del jugador: con DB Browser (Bloque 2) cualquiera abre estacion_norte.db y cambia su puntaje.' },
-  { icono: TrashIcon, titulo: 'Se pierde con el dispositivo', texto: 'Desinstalar el juego borra persistentDataPath y el ranking con él; al cambiar de celular, el ranking se queda en el viejo.' },
+  { icono: TrashIcon, titulo: 'Se pierde con el dispositivo', texto: 'En el móvil, desinstalar el juego borra persistentDataPath y el ranking con él; al cambiar de celular, el ranking se queda en el viejo.' },
 ]
 
 function Trampa() {

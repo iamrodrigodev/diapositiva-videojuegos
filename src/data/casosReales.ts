@@ -69,7 +69,7 @@ export const CASOS: CasoReal[] = [
     tecnologia: 'MySQL',
     tipo: 'SQL en servidor',
     pista: 'La base SQL de código abierto más popular, repartida en cientos de instancias.',
-    detalle: 'El equipo mantenía unas 300 bases MySQL en la nube de AWS para millones de aldeas.',
-    fuente: 'AWS · Supercell case study',
+    detalle: 'Tres desarrolladores de servidor mantenían unas 300 bases MySQL en AWS para millones de aldeas.',
+    fuente: 'AWS · Innovator: Supercell',
   },
 ]

@@ -28,7 +28,7 @@ const PASOS: PasoCodigo[] = [
   { desde: 11, hasta: 12, titulo: 'Insertar el récord', texto: <>El <code>id</code> se busca por nombre dentro del mismo <code>INSERT</code>. Si es su primer puntaje en ese nivel, se crea la fila.</> },
   { desde: 13, hasta: 14, titulo: 'El mismo upsert del guardado', texto: <>Si ya tiene récord, <code>ON CONFLICT</code> actualiza. <code>excluded</code> es la fila que se intentó insertar: el puntaje nuevo.</> },
   { desde: 15, hasta: 15, titulo: 'Solo si lo supera', texto: <>El <code>WHERE</code> actualiza <strong>solo si el puntaje nuevo es mayor</strong>. Si no, el récord se queda igual.</> },
-  { desde: 16, hasta: 18, titulo: 'Parámetros, como siempre', texto: <>Nombre, nivel y puntaje van aparte del SQL: el nombre lo escribe el jugador y podría traer una inyección.</> },
+  { desde: 16, hasta: 18, titulo: 'Parámetros, como siempre', texto: <>Nivel y puntaje van aparte del SQL, igual que el nombre (línea 7): el nombre lo escribe el jugador y podría traer una inyección.</> },
 ]
 
 export default function RegistrarPuntaje() {

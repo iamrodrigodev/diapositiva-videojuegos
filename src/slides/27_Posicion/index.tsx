@@ -48,7 +48,7 @@ public class PantallaRanking : MonoBehaviour {
 const PASOS_PANTALLA: PasoCodigo[] = [
   { desde: 5, hasta: 7, titulo: 'Piezas de la interfaz', texto: <>Se asignan en el Inspector: el contenedor de la lista (un <em>Vertical Layout Group</em>), una fila de texto como prefab y el texto de «tu puesto».</> },
   { desde: 10, hasta: 10, titulo: 'Limpiar la lista', texto: <>Se borran las filas anteriores antes de dibujar el ranking nuevo.</> },
-  { desde: 12, hasta: 16, titulo: 'Una fila por puesto', texto: <>Por cada resultado de <code>Ranking.Top</code> se crea una copia del prefab con «puesto, nombre y puntaje».</> },
+  { desde: 12, hasta: 16, titulo: 'Una fila por puesto', texto: <>Por cada resultado de <code>Ranking.Top</code> se crea una copia del prefab con «puesto, nombre y puntaje». Si hubiera empates, el puesto se leería también con <code>RANK()</code>.</> },
   { desde: 18, hasta: 19, titulo: 'Tu puesto aparte', texto: <>Debajo de la lista se muestra la posición del jugador, aunque esté lejos del top 10.</> },
 ]
 

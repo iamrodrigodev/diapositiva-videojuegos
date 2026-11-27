@@ -12,10 +12,10 @@ const DESTINOS: DestinoClasificacion[] = [
 ]
 
 const ITEMS: ItemClasificable[] = [
-  { id: 'ranuras', texto: '3 ranuras de partida', destino: 'sqlite' },
+  { id: 'ranuras', texto: '3 ranuras de partida con su inventario', destino: 'sqlite' },
   { id: 'volumen', texto: 'Volumen y brillo', destino: 'prefs' },
   { id: 'mundial', texto: 'Ranking mundial', destino: 'servidor' },
-  { id: 'controles', texto: 'Mapa de controles personalizado', destino: 'json' },
+  { id: 'accesibilidad', texto: 'Perfil de accesibilidad: un objeto con 25 opciones anidadas que se carga entero', destino: 'json' },
   { id: 'inventario', texto: 'Inventario de cada partida', destino: 'sqlite' },
   { id: 'idioma', texto: 'Idioma elegido', destino: 'prefs' },
   { id: 'compras', texto: 'Compras con dinero real', destino: 'servidor' },

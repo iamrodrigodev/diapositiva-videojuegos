@@ -6,7 +6,7 @@ const PLATAFORMAS: { nombre: string; ok: boolean; archivo: string; nota: string 
   { nombre: 'macOS · Linux', ok: true, archivo: 'libsqlite3', nota: 'Suele venir instalado en el sistema' },
   { nombre: 'Android', ok: true, archivo: 'libsqlite3.so', nota: 'Uno por procesador (ARM64, ARMv7)' },
   { nombre: 'iOS', ok: true, archivo: '—', nota: 'SQLite ya viene con el sistema' },
-  { nombre: 'WebGL', ok: false, archivo: '—', nota: 'El navegador no puede cargar librerías nativas ni escribir archivos' },
+  { nombre: 'WebGL', ok: false, archivo: '—', nota: 'El navegador no carga librerías nativas; los archivos van a un disco virtual (IndexedDB)' },
 ]
 
 export default function Plataformas() {
@@ -15,7 +15,7 @@ export default function Plataformas() {
       <Card tone="cyan" title="¿Por qué depende de la plataforma?">
         <p className="mt-2 leading-relaxed">El motor de SQLite está escrito en <strong className="text-fg">C</strong> y se compila para cada sistema operativo y procesador. Tu código C# es el mismo en todas partes, pero el juego necesita el <strong className="text-fg">motor nativo</strong> correcto en cada build.</p>
         <p className="mt-3 rounded-[0.4rem] border border-coral/40 bg-coral/5 p-3 text-sm text-fg">
-          <strong className="text-coral">WebGL:</strong> el juego corre dentro del navegador, que no permite librerías nativas ni archivos reales. Ahí se usa PlayerPrefs, JSON o un servidor (Bloque 1).
+          <strong className="text-coral">WebGL:</strong> el juego corre dentro del navegador, que no permite librerías nativas; sus archivos van a un disco virtual del navegador. Ahí se usa PlayerPrefs, JSON o un servidor (Bloque 1).
         </p>
       </Card>
       <table className="w-full border-collapse self-start text-left text-fg [&_:is(th,td)]:border [&_:is(th,td)]:border-line [&_:is(th,td)]:px-4 [&_:is(th,td)]:py-2.5">

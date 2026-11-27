@@ -16,7 +16,10 @@ const nuevaRonda = (): Ronda =>
     opciones: barajar([c.tecnologia, ...barajar(CASOS.filter((o) => o.tecnologia !== c.tecnologia)).slice(0, 3).map((o) => o.tecnologia)]),
   }))
 
-const pistasDe = (c: CasoReal) => [c.pista, `Tipo: ${c.tipo}.`, `Empieza por «${c.tecnologia[0]}» y tiene ${c.tecnologia.length} caracteres.`]
+const pistasDe = (c: CasoReal) => {
+  const ultima = c.tecnologia.split(' ').pop()!
+  return [c.pista, `Tipo: ${c.tipo}.`, `Su última palabra empieza por «${ultima[0]}», termina en «${ultima[ultima.length - 1]}» y tiene ${ultima.length} letras.`]
+}
 
 export default function QuienSoy() {
   const [ronda, setRonda] = usePersistentState<Ronda>('quien-soy:ronda', nuevaRonda)

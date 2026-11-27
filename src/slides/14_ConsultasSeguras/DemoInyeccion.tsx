@@ -6,8 +6,8 @@ import DataTable from '../../components/DataTable'
 import { sonido } from '../../lib/sonido'
 import { usePersistentState } from '../../lib/usePersistentState'
 
-const ATAQUE = "linterna'; DROP TABLE objetos; --"
-const OBJETOS: [number, string, number][] = [[1, 'linterna', 30], [2, 'llave roja', 50], [3, 'botiquín', 20]]
+const ATAQUE = "Linterna'; DROP TABLE objetos; --"
+const OBJETOS: [number, string, number][] = [[1, 'Linterna', 30], [2, 'Llave roja', 50], [3, 'Botiquín', 20]]
 
 type Resultado = { tipo: 'filas'; filas: [number, string, number][] } | { tipo: 'borrada' }
 
@@ -39,7 +39,7 @@ export default function DemoInyeccion() {
       <div className="flex flex-wrap items-center gap-3">
         <label htmlFor="busqueda-objeto" className="text-body">El jugador busca en la tienda:</label>
         <input id="busqueda-objeto" value={nombre} onChange={(e) => cambiar(e.target.value)} className="min-h-10 min-w-72 flex-1 rounded-[0.4rem] border border-amber/50 bg-well px-3 font-mono text-fg focus-visible:outline-2 focus-visible:outline-cyan" />
-        <button type="button" onClick={() => cambiar('linterna')} className="min-h-10 rounded-[0.4rem] border border-white/20 px-3 text-sm text-fg hover:bg-white/5 focus-visible:outline-2 focus-visible:outline-cyan">Búsqueda normal</button>
+        <button type="button" onClick={() => cambiar('Linterna')} className="min-h-10 rounded-[0.4rem] border border-white/20 px-3 text-sm text-fg hover:bg-white/5 focus-visible:outline-2 focus-visible:outline-cyan">Búsqueda normal</button>
         <button type="button" onClick={() => cambiar(ATAQUE)} className="min-h-10 rounded-[0.4rem] border border-coral/50 px-3 text-sm text-coral hover:bg-coral/10 focus-visible:outline-2 focus-visible:outline-cyan">Escribir un ataque</button>
       </div>
       <div className="grid grid-cols-2 gap-4 max-[900px]:grid-cols-1">

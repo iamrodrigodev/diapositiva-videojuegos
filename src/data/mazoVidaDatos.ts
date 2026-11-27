@@ -11,7 +11,7 @@ export const MAZO_VIDA_DATOS: ItemClasificable[] = [
   { id: 'acumulado', texto: 'Puntaje de la partida en curso', destino: 'sesion', porque: 'se suma nivel a nivel; solo el resultado final se guarda.' },
   { id: 'conexion', texto: 'Estado de conexión al servidor', destino: 'sesion', porque: 'se vuelve a comprobar al abrir el juego.' },
   { id: 'cache', texto: 'Texturas ya cargadas en memoria', destino: 'sesion', porque: 'es caché: se reconstruye al iniciar.' },
-  { id: 'carrito', texto: 'Objetos elegidos en la tienda sin pagar', destino: 'sesion', porque: 'si se cierra el juego, se descartan.' },
+  { id: 'carrito', texto: 'Carrito de la tienda que se mantiene al cambiar de nivel', destino: 'sesion', porque: 'cruza escenas, pero si se cierra el juego se descarta.' },
   { id: 'volumen', texto: 'Volumen elegido en Opciones', destino: 'disco', porque: 'el jugador espera encontrarlo igual al volver.' },
   { id: 'record', texto: 'Mejor puntaje histórico', destino: 'disco', porque: 'debe sobrevivir entre sesiones.' },
   { id: 'checkpoint', texto: 'Checkpoint «Estación norte»', destino: 'disco', porque: 'es el progreso: perderlo obliga a repetir el juego.' },

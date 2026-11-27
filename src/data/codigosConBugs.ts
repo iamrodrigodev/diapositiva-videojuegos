@@ -34,7 +34,7 @@ export const CODIGOS_CON_BUGS: CodigoConBugs[] = [
       '}',
     ],
     bugs: {
-      1: 'dataPath es de solo lectura en el build: debe ser persistentDataPath.',
+      1: 'dataPath es la carpeta del juego instalado: en móvil es de solo lectura y en PC se reemplaza al actualizar. Debe ser persistentDataPath.',
       5: 'Sin «IF NOT EXISTS»: en el segundo arranque falla porque la tabla ya existe.',
     },
   },
@@ -52,7 +52,7 @@ export const CODIGOS_CON_BUGS: CodigoConBugs[] = [
     ],
     bugs: {
       4: 'Valor concatenado en el INSERT: debe ir como parámetro @inicio.',
-      7: 'El catch vacío no hace Rollback ni avisa: el error pasa en silencio.',
+      7: 'El catch vacío se traga el error: el jugador cree que guardó. Falta el Rollback() explícito y avisar del fallo (como en la diapositiva 14).',
     },
   },
   {
@@ -69,7 +69,7 @@ export const CODIGOS_CON_BUGS: CodigoConBugs[] = [
     ],
     bugs: {
       1: 'streamingAssetsPath es de solo lectura (y en Android está dentro del APK): la base vive en persistentDataPath.',
-      6: 'ExecuteNonQuery no devuelve filas: para leer un único valor se usa ExecuteScalar.',
+      6: 'ExecuteNonQuery no devuelve filas: un SELECT se lee con ExecuteReader (o ExecuteScalar, que devuelve un solo valor).',
     },
   },
   {

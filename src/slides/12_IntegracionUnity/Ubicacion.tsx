@@ -33,10 +33,11 @@ export default function Ubicacion() {
   string origen = Path.Combine(Application.streamingAssetsPath, "estacion_norte.db");
   using var req = UnityWebRequest.Get(origen);  // en Android se lee como descarga
   yield return req.SendWebRequest();
+  if (req.result != UnityWebRequest.Result.Success) yield break;
   File.WriteAllBytes(destino, req.downloadHandler.data);
 }
-// se llama una vez: StartCoroutine(CopiarBaseInicial());`} />
-          <p className="mt-2 text-sm text-body">¿Sin base inicial? No se copia nada: SQLite crea el archivo vacío al abrir la conexión.</p>
+// antes de abrir la base: yield return CopiarBaseInicial();`} />
+          <p className="mt-2 text-sm text-body">Debe terminar antes de abrir la conexión: Open() crearía un .db vacío y la copia ya no se haría. ¿Sin base inicial? No se copia nada: SQLite crea el archivo al abrir.</p>
         </Card>
         <Card title="¿Dónde queda en cada sistema?">
           <ul className="mt-2 grid gap-2 text-sm">

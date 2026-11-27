@@ -32,7 +32,7 @@ const PASOS: PasoCodigo[] = [
   { desde: 1, hasta: 4, titulo: 'Jugadores', texto: <>Cada jugador tiene un <code>id</code> y un <code>nombre</code> que no se repite (<code>UNIQUE</code>).</> },
   { desde: 6, hasta: 9, titulo: '¿De quién es la partida?', texto: <><code>jugador_id</code> apunta a <code>jugadores(id)</code>: no se puede guardar una partida de un jugador que no existe.</> },
   { desde: 10, hasta: 13, titulo: 'El estado', texto: <>Los mismos campos de <code>EstadoPartida</code>, más la fecha para mostrarla en el menú de ranuras.</> },
-  { desde: 14, hasta: 14, titulo: 'Una partida por ranura', texto: <><code>UNIQUE (jugador_id, ranura)</code> impide dos partidas en la misma ranura: al guardar de nuevo, se <strong>reemplaza</strong>.</> },
+  { desde: 14, hasta: 14, titulo: 'Una partida por ranura', texto: <><code>UNIQUE (jugador_id, ranura)</code> impide dos partidas en la misma ranura. Al guardar de nuevo, el upsert de la diapositiva 19 la <strong>reemplaza</strong>.</> },
   { desde: 17, hasta: 22, titulo: 'Inventario', texto: <>Una fila por objeto. <code>ON DELETE CASCADE</code>: al borrar una partida, sus objetos se borran solos.</> },
   { desde: 24, hasta: 24, titulo: 'El jugador inicial', texto: <>Un juego de un solo jugador crea el <strong>Jugador 1</strong> al instalarse. <code>OR IGNORE</code>: si ya existe, no hace nada.</> },
 ]

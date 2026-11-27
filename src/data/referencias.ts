@@ -1,5 +1,5 @@
 export const REFERENCIAS: { texto: string; titulo: string; resto: string; url?: string }[] = [
-  { texto: 'Amazon Web Services. (s.f.).', titulo: 'Supercell case study', resto: '.', url: 'https://aws.amazon.com/solutions/case-studies/supercell/' },
+  { texto: 'Amazon Web Services. (s.f.).', titulo: 'AWS Innovator: Supercell', resto: '.', url: 'https://aws.amazon.com/solutions/case-studies/innovators/supercell/' },
   { texto: 'Bell, A. (Presentador). (2021). The untold story of SQLite with Richard Hipp (N.º 66) [Episodio de pódcast]. En', titulo: 'CoRecursive', resto: '.', url: 'https://corecursive.com/066-sqlite-with-richard-hipp/' },
   { texto: 'CCP Games. (2022).', titulo: 'A history of EVE database server hardware', resto: '.', url: 'https://www.eveonline.com/news/view/a-history-of-eve-database-server-hardware' },
   { texto: 'Civilization Wiki. (s.f.).', titulo: 'Modding (Civ6)/How to alter base game content', resto: '. Fandom.', url: 'https://civilization.fandom.com/wiki/Modding_(Civ6)/How_to_Alter_Base_Game_Content' },
