@@ -1,4 +1,5 @@
 import CodigoPorPasos, { type PasoCodigo } from '../../components/CodigoPorPasos'
+import Lead from '../../components/Lead'
 import Slide from '../../components/Slide'
 import Tabs from '../../components/Tabs'
 import Indice from './Indice'
@@ -30,6 +31,7 @@ const TABS = [
 export default function ModeloPuntuaciones() {
   return (
     <Slide bloque="Bloque 4 · Puntuaciones" titulo="Modelo de puntuaciones">
+      <Lead>El ranking de <strong>Estación Norte</strong>: el mejor puntaje de cada jugador en cada nivel, en el mismo <code>estacion_norte.db</code> de las partidas.</Lead>
       <Tabs tabs={TABS} label="Modelo de puntuaciones" />
     </Slide>
   )

@@ -57,7 +57,7 @@ const FILAS: [string, number][] = [['ana', 12040], ['leo', 11870], ['luis', 1040
 function Maqueta() {
   return (
     <div className="mx-auto w-full max-w-md overflow-hidden rounded-xl border-2 border-coral/60 bg-ink-deep shadow-[0_0_40px_#ff6b5b26]" role="img" aria-label="Maqueta de la pantalla de ranking en el juego">
-      <p className="flex items-center justify-center gap-2 bg-coral/15 py-3 font-display text-xl font-bold text-coral uppercase"><CrownIcon aria-hidden="true" size={22} /> Ranking · Nivel 3</p>
+      <p className="flex items-center justify-center gap-2 bg-coral/15 py-3 font-display text-xl font-bold text-coral uppercase"><CrownIcon aria-hidden="true" size={22} /> Estación Norte · Nivel 3</p>
       <ol className="grid gap-1 p-3 font-mono">
         {FILAS.map(([nombre, puntaje], i) => (
           <li key={nombre} className={`grid grid-cols-[2.5rem_1fr_auto] rounded-[0.3rem] px-3 py-2 ${i === 0 ? 'bg-amber/15 text-amber' : 'text-fg'}`}>

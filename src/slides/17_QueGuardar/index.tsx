@@ -31,7 +31,7 @@ public class EstadoPartida {
 export default function QueGuardar() {
   return (
     <Slide bloque="Bloque 3 · Guardado de partidas" titulo="¿Qué guardar?">
-      <Lead>Regla de oro: guardar <strong>lo mínimo para reconstruir la partida</strong>. Lo que se puede calcular, se calcula al cargar.</Lead>
+      <Lead>¿Qué se guarda de una partida de <strong>Estación Norte</strong>? Regla de oro: guardar <strong>lo mínimo para reconstruir la partida</strong>. Lo que se puede calcular, se calcula al cargar.</Lead>
       <Reveal className="grid grid-cols-[1fr_1fr_minmax(16rem,1.1fr)] gap-4 max-[1000px]:grid-cols-2 max-[700px]:grid-cols-1">
         <Card tone="mint" title={<><FloppyDiskIcon aria-hidden="true" size={22} /> Se guarda: estado</>}>
           <ul className="mt-2 grid gap-2">
