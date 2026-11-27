@@ -1,4 +1,4 @@
-import { ArrowClockwiseIcon, ArrowRightIcon, PlayIcon, TrophyIcon } from '@phosphor-icons/react'
+import { ArrowClockwiseIcon, ArrowRightIcon, EraserIcon, PlayIcon, TrophyIcon } from '@phosphor-icons/react'
 import Celebracion from '../../components/Celebracion'
 import { PUNTAJES_EJEMPLO } from '../../data/rankingEjemplo'
 import { clave, RONDAS } from '../../data/rondasBaseDeDatos'
@@ -63,11 +63,12 @@ export default function Ejecutor() {
                 const color = !ejecutado ? 'text-fg' : ronda.respuesta[i] === k ? 'text-mint' : 'text-coral'
                 return <li key={k} className={`grid grid-cols-[1.5rem_1fr_auto_auto] gap-3 ${color}`}><span>{i + 1}.</span><span>{f.jugador}</span><span>nivel {f.nivel}</span><span>{f.puntaje}</span></li>
               })}</ol>}
+          {elegidas.length > 0 && !ejecutado && <p className="mt-2 text-xs text-muted">¿Te equivocaste de orden? Toca una fila marcada de la derecha para quitarla, o usa Limpiar.</p>}
         </section>
         <div className="flex flex-wrap items-center gap-3">
-          {!ejecutado
-            ? <button type="button" onClick={ejecutar} disabled={elegidas.length === 0} className="chamfer flex min-h-10 items-center gap-2 bg-coral px-5 font-bold text-ink hover:brightness-110 disabled:opacity-40 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan"><PlayIcon aria-hidden="true" size={16} /> Ejecutar</button>
-            : <button type="button" onClick={siguiente} className="chamfer flex min-h-10 items-center gap-2 bg-coral px-5 font-bold text-ink hover:brightness-110 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan">{indice + 1 >= RONDAS.length ? 'Ver resultado' : 'Siguiente consulta'} <ArrowRightIcon aria-hidden="true" size={16} /></button>}
+          {!ejecutado && <button type="button" onClick={ejecutar} disabled={elegidas.length === 0} className="chamfer flex min-h-10 items-center gap-2 bg-coral px-5 font-bold text-ink hover:brightness-110 disabled:opacity-40 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan"><PlayIcon aria-hidden="true" size={16} /> Ejecutar</button>}
+          {!ejecutado && elegidas.length > 0 && <button type="button" onClick={() => setElegidas([])} className="flex min-h-10 items-center gap-2 rounded-[0.4rem] border border-white/20 px-4 text-sm text-fg hover:bg-white/5 focus-visible:outline-2 focus-visible:outline-cyan"><EraserIcon aria-hidden="true" size={16} /> Limpiar</button>}
+          {ejecutado && <button type="button" onClick={siguiente} className="chamfer flex min-h-10 items-center gap-2 bg-coral px-5 font-bold text-ink hover:brightness-110 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan">{indice + 1 >= RONDAS.length ? 'Ver resultado' : 'Siguiente consulta'} <ArrowRightIcon aria-hidden="true" size={16} /></button>}
         </div>
         {ejecutado && (
           <p role="status" className={`text-sm ${correcto ? 'text-mint' : 'text-coral'}`}>
@@ -77,8 +78,8 @@ export default function Ejecutor() {
         )}
       </div>
 
-      <section aria-label="Tabla records" className="rounded-lg border border-white/12 bg-panel p-3">
-        <p className="mb-2 font-mono text-xs tracking-[0.2em] text-muted uppercase">Tabla records</p>
+      <section aria-label="Filas de records con el nombre de jugadores" className="rounded-lg border border-white/12 bg-panel p-3">
+        <p className="mb-2 font-mono text-xs tracking-[0.2em] text-muted uppercase">records + jugadores</p>
         <div className="grid grid-cols-2 gap-1.5">
           {PUNTAJES_EJEMPLO.map((f) => {
             const k = clave(f)

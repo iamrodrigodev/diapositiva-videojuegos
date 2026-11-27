@@ -111,6 +111,7 @@ export default function CazaBugs() {
 
       <section className="grid content-start gap-3 rounded-lg border border-cyan/45 bg-panel p-4">
         <h3 className="font-display text-xl font-bold text-fg">Hay {bugs.length} bugs escondidos</h3>
+        {!comprobado && <p className="text-sm text-fg">Toca cada <strong>línea con un error</strong> para marcarla 🐞; tócala otra vez para desmarcarla. Luego pulsa <strong>Revisar</strong>.</p>}
         <p className="text-sm text-body">+{PUNTOS_ACIERTO} por bug encontrado · −{PENALIZACION} por falsa alarma · −{COSTO_PISTA} por pista.</p>
         {pista !== null && !comprobado && <p className="text-sm text-amber">💡 Hay un bug entre las líneas {Math.max(1, pista)} y {Math.min(codigo.lineas.length, pista + 2)}.</p>}
         {!comprobado ? (

@@ -1,4 +1,4 @@
-import { ArrowCounterClockwiseIcon, CheckIcon, LightbulbIcon, ShuffleIcon, TimerIcon } from '@phosphor-icons/react'
+import { CheckIcon, LightbulbIcon, ShuffleIcon, SignOutIcon, TimerIcon } from '@phosphor-icons/react'
 import { useState, type DragEvent, type ReactNode } from 'react'
 import { barajar } from '../lib/barajar'
 import { useCronometro } from '../lib/useCronometro'
@@ -116,17 +116,17 @@ export default function Clasificador({ id, items: mazo, destinos, columnas = 'gr
           <CheckIcon aria-hidden="true" size={16} /> Comprobar
         </button>
         <button type="button" onClick={reiniciar} className={`${accion} border border-white/20 text-fg hover:bg-white/5`}>
-          <ArrowCounterClockwiseIcon aria-hidden="true" size={16} /> Reiniciar
+          <SignOutIcon aria-hidden="true" size={16} /> Salir
         </button>
         {hayMasCartas && (
           <button type="button" onClick={nuevasCartas} className={`${accion} border border-amber/50 text-amber hover:bg-amber/10`}>
             <ShuffleIcon aria-hidden="true" size={16} /> Nuevas cartas
           </button>
         )}
-        <p role="status" className={`font-mono text-sm ${comprobado && errores.length ? 'text-amber' : 'text-mint'}`}>
+        <p role="status" className={`min-w-0 flex-1 font-mono text-sm ${comprobado && errores.length ? 'text-amber' : 'text-mint'}`}>
           {comprobado ? `${veredicto} · ${aciertos} / ${items.length} en ${segundos} s` : sueltos.length > 0 ? 'Arrastra cada ficha (o clic en la ficha y luego en el grupo)' : 'Clic en una ficha colocada para devolverla'}
         </p>
-        <p className="chamfer ml-auto flex min-h-10 min-w-28 items-center justify-center gap-2 bg-well px-4 font-mono text-xl text-amber tabular-nums" aria-label={`Tiempo: ${segundos} segundos`}>
+        <p className="chamfer flex min-h-10 min-w-28 shrink-0 items-center justify-center gap-2 bg-well px-4 font-mono text-xl text-amber tabular-nums" aria-label={`Tiempo: ${segundos} segundos`}>
           <TimerIcon aria-hidden="true" size={22} />{String(Math.floor(segundos / 60)).padStart(2, '0')}:{String(segundos % 60).padStart(2, '0')}
         </p>
       </div>

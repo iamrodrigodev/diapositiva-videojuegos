@@ -102,7 +102,7 @@ export default function Quiz({ id, preguntas, porRonda, segundos = 20 }: Props) 
         {marcador}
         {(enJuego || paso > 0) && (
           <button type="button" onClick={reiniciar} className="flex min-h-9 items-center gap-2 rounded-[0.4rem] border border-white/20 px-3 text-sm text-body hover:border-coral hover:text-coral focus-visible:outline-2 focus-visible:outline-cyan">
-            <SignOutIcon aria-hidden="true" size={16} /> Salir del juego
+            <SignOutIcon aria-hidden="true" size={16} /> Salir
           </button>
         )}
       </div>
