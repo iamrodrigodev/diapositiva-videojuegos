@@ -10,22 +10,22 @@ const ejecutar = (filtro: (f: FilaPuntaje) => boolean, desc: boolean, limite?: n
 // La respuesta se calcula con los mismos datos que ve el jugador: no puede desincronizarse.
 export const RONDAS: Ronda[] = [
   {
-    consulta: 'SELECT * FROM records\nWHERE nivel = 1\nORDER BY puntaje DESC\nLIMIT 3;',
+    consulta: 'SELECT j.nombre, r.nivel, r.puntaje\nFROM records r JOIN jugadores j ON j.id = r.jugador_id\nWHERE r.nivel = 1\nORDER BY r.puntaje DESC\nLIMIT 3;',
     respuesta: ejecutar((f) => f.nivel === 1, true, 3),
     explicacion: 'Solo el nivel 1, del mayor al menor, y se queda con los 3 primeros.',
   },
   {
-    consulta: 'SELECT * FROM records\nWHERE nivel = 2\nORDER BY puntaje ASC\nLIMIT 2;',
+    consulta: 'SELECT j.nombre, r.nivel, r.puntaje\nFROM records r JOIN jugadores j ON j.id = r.jugador_id\nWHERE r.nivel = 2\nORDER BY r.puntaje ASC\nLIMIT 2;',
     respuesta: ejecutar((f) => f.nivel === 2, false, 2),
     explicacion: 'ASC ordena del menor al mayor: salen los 2 puntajes más bajos del nivel 2.',
   },
   {
-    consulta: 'SELECT * FROM records\nWHERE nivel = 3 AND puntaje > 10500\nORDER BY puntaje DESC;',
+    consulta: 'SELECT j.nombre, r.nivel, r.puntaje\nFROM records r JOIN jugadores j ON j.id = r.jugador_id\nWHERE r.nivel = 3 AND r.puntaje > 10500\nORDER BY r.puntaje DESC;',
     respuesta: ejecutar((f) => f.nivel === 3 && f.puntaje > 10500, true),
     explicacion: 'Las dos condiciones deben cumplirse a la vez; sin LIMIT salen todas las que pasan el filtro.',
   },
   {
-    consulta: 'SELECT * FROM records\nWHERE puntaje > 9000\nORDER BY puntaje DESC\nLIMIT 4;',
+    consulta: 'SELECT j.nombre, r.nivel, r.puntaje\nFROM records r JOIN jugadores j ON j.id = r.jugador_id\nWHERE r.puntaje > 9000\nORDER BY r.puntaje DESC\nLIMIT 4;',
     respuesta: ejecutar((f) => f.puntaje > 9000, true, 4),
     explicacion: 'Sin filtro de nivel, compiten todos los niveles juntos.',
   },

@@ -23,7 +23,7 @@ public static class Puntajes {
 }`
 
 const PASOS: PasoCodigo[] = [
-  { desde: 3, hasta: 5, titulo: 'Al terminar el nivel', texto: <>La pantalla de resultados pide un nombre y llama a <code>Puntajes.Registrar</code>. Abre con el <code>Abrir()</code> del Bloque 3.</> },
+  { desde: 3, hasta: 5, titulo: 'Al terminar el nivel', texto: <>La pantalla de resultados pide un nombre, como en un <strong>arcade</strong>: en el mismo dispositivo pueden competir varias personas, aunque las partidas guardadas sean del Jugador 1. Luego llama a <code>Puntajes.Registrar</code>, que abre con el <code>Abrir()</code> del Bloque 3.</> },
   { desde: 7, hasta: 9, titulo: '¿Jugador nuevo?', texto: <>Si el nombre no existe, se crea en <code>jugadores</code>. <code>OR IGNORE</code>: si ya existe (<code>UNIQUE</code>), no pasa nada.</> },
   { desde: 11, hasta: 12, titulo: 'Insertar el récord', texto: <>El <code>id</code> se busca por nombre dentro del mismo <code>INSERT</code>. Si es su primer puntaje en ese nivel, se crea la fila.</> },
   { desde: 13, hasta: 14, titulo: 'El mismo upsert del guardado', texto: <>Si ya tiene récord, <code>ON CONFLICT</code> actualiza. <code>excluded</code> es la fila que se intentó insertar: el puntaje nuevo.</> },

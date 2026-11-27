@@ -2,30 +2,21 @@ import { TrophyIcon } from '@phosphor-icons/react'
 import { PUNTAJES_EJEMPLO } from '../../data/rankingEjemplo'
 import { usePersistentState } from '../../lib/usePersistentState'
 
-type Periodo = 'todo' | 'semana' | 'hoy'
-const PERIODOS: { id: Periodo; texto: string; dias: number; sql: string }[] = [
-  { id: 'todo', texto: 'Siempre', dias: Infinity, sql: '' },
-  { id: 'semana', texto: 'Últimos 7 días', dias: 7, sql: "\n  AND r.fecha >= datetime('now', '-7 days')" },
-  { id: 'hoy', texto: 'Hoy', dias: 1, sql: "\n  AND r.fecha >= date('now')" },
-]
-
 const opcion = (activa: boolean) => `min-h-9 rounded-[0.4rem] border px-3 text-sm focus-visible:outline-2 focus-visible:outline-cyan ${activa ? 'border-coral bg-coral/15 text-fg' : 'border-white/15 text-muted hover:text-fg'}`
 
 export default function Constructor() {
   const [nivel, setNivel] = usePersistentState('top:nivel', 1)
-  const [periodo, setPeriodo] = usePersistentState<Periodo>('top:periodo', 'todo')
   const [cantidad, setCantidad] = usePersistentState('top:cantidad', 3)
 
-  const p = PERIODOS.find((x) => x.id === periodo)!
   const resultado = PUNTAJES_EJEMPLO
-    .filter((f) => f.nivel === nivel && f.dias < p.dias)
+    .filter((f) => f.nivel === nivel)
     .sort((a, b) => b.puntaje - a.puntaje)
     .slice(0, cantidad)
 
   const sql = `SELECT j.nombre, r.puntaje
 FROM records r
 JOIN jugadores j ON j.id = r.jugador_id
-WHERE r.nivel = ${nivel}${p.sql}
+WHERE r.nivel = ${nivel}
 ORDER BY r.puntaje DESC
 LIMIT ${cantidad};`
 
@@ -35,10 +26,6 @@ LIMIT ${cantidad};`
         <fieldset className="grid gap-1.5">
           <legend className="mb-1 font-mono text-xs tracking-[0.2em] text-muted uppercase">Nivel</legend>
           <div className="flex gap-2">{[1, 2, 3].map((n) => <button key={n} type="button" aria-pressed={nivel === n} onClick={() => setNivel(n)} className={opcion(nivel === n)}>Nivel {n}</button>)}</div>
-        </fieldset>
-        <fieldset className="grid gap-1.5">
-          <legend className="mb-1 font-mono text-xs tracking-[0.2em] text-muted uppercase">Período</legend>
-          <div className="flex flex-wrap gap-2">{PERIODOS.map((x) => <button key={x.id} type="button" aria-pressed={periodo === x.id} onClick={() => setPeriodo(x.id)} className={opcion(periodo === x.id)}>{x.texto}</button>)}</div>
         </fieldset>
         <fieldset className="grid gap-1.5">
           <legend className="mb-1 font-mono text-xs tracking-[0.2em] text-muted uppercase">¿Cuántos?</legend>
@@ -55,7 +42,7 @@ LIMIT ${cantidad};`
                   <span className={i === 0 ? 'text-amber' : 'text-muted'}>{i + 1}.</span><span className="text-fg">{f.jugador}</span><span className="text-coral">{f.puntaje.toLocaleString('es-PE')}</span>
                 </li>
               ))}</ol>
-            : <p className="text-sm text-muted">Nadie jugó ese nivel en ese período.</p>}
+            : <p className="text-sm text-muted">Nadie jugó ese nivel todavía.</p>}
         </section>
       </div>
     </div>
