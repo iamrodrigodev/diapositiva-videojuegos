@@ -54,7 +54,7 @@ export default function Portada() {
         <h2 id="integrantes" className="font-mono text-xs font-medium tracking-[0.19em] text-mint uppercase">
           Integrantes
         </h2>
-        <ul className="mt-[0.65rem] grid grid-cols-4 gap-x-6 gap-y-3 text-[clamp(0.95rem,1.3vw,1.1rem)] leading-normal text-fg max-[760px]:grid-cols-2">
+        <ul className="mt-[0.65rem] flex flex-wrap gap-x-[clamp(1.5rem,3vw,2.75rem)] gap-y-2 text-[clamp(0.95rem,1.3vw,1.1rem)] leading-normal text-fg">
           {INTEGRANTES.map((nombre) => <li key={nombre}>{nombre}</li>)}
         </ul>
       </motion.section>
