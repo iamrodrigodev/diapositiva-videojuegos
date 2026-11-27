@@ -32,7 +32,7 @@ export default function Agenda() {
           <p className="text-body">Al final: <strong className="text-fg">conclusiones, preguntas</strong> y referencias.</p>
         </div>
       </Reveal>
-      <Reveal className="font-mono text-sm text-muted">Hilo conductor: <span className="text-fg">Estación Norte</span>, nuestro juego de ejemplo.</Reveal>
+      <Reveal className="font-mono text-sm text-muted"><strong className="text-fg">Nuestro ejemplo:</strong> <em className="text-fg">Estación Norte</em>, un juego de aventura inventado con ranuras de guardado, inventario y un top 10. Lo usamos en los 4 bloques.</Reveal>
     </Slide>
   )
 }
