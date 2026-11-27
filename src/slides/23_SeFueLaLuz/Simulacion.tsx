@@ -1,4 +1,4 @@
-import { ArrowClockwiseIcon, ArrowRightIcon, CheckCircleIcon, FloppyDiskIcon, LightningSlashIcon, PowerIcon, WarningIcon } from '@phosphor-icons/react'
+import { ArrowClockwiseIcon, ArrowRightIcon, CheckCircleIcon, FloppyDiskIcon, PowerIcon, XCircleIcon, WarningIcon } from '@phosphor-icons/react'
 import { useEffect } from 'react'
 import { sonido } from '../../lib/sonido'
 import { usePersistentState } from '../../lib/usePersistentState'
@@ -54,10 +54,10 @@ export default function Simulacion() {
 
   const instruccion = {
     listo: <>① Pulsa <strong className="text-mint">Guardar partida</strong>.</>,
-    guardando: <>② ¡Rápido! <strong className="text-coral">Corta la luz</strong> antes de que termine.</>,
-    cortado: <>③ La pantalla se apagó. <strong className="text-amber">Vuelve a abrir el juego</strong>: ¿qué quedó guardado?</>,
+    guardando: <>② ¡Rápido! <strong className="text-coral">Cierra el juego de golpe</strong> antes de que termine.</>,
+    cortado: <>③ El juego se cerró. <strong className="text-amber">Vuelve a abrir el juego</strong>: ¿qué quedó guardado?</>,
     reabierto: <>Compara las dos ranuras. ¿Cuál preferirías como jugador?</>,
-    completo: <>Esta vez no cortaste la luz: los dos guardados terminaron bien. <strong className="text-fg">Prueba otra vez y córtala a mitad.</strong></>,
+    completo: <>Esta vez no cerraste el juego: los dos guardados terminaron bien. <strong className="text-fg">Prueba otra vez y ciérralo a mitad.</strong></>,
   }[fase]
 
   return (
@@ -70,7 +70,7 @@ export default function Simulacion() {
 
       <div className="flex flex-wrap items-center gap-3 rounded-lg border border-white/12 bg-panel p-3">
         {fase === 'listo' && <button type="button" onClick={guardar} className={`${boton} chamfer bg-mint text-ink hover:brightness-110`}><FloppyDiskIcon aria-hidden="true" size={22} /> Guardar partida</button>}
-        {fase === 'guardando' && <button type="button" onClick={cortar} className={`${boton} chamfer animate-pulse bg-coral text-ink hover:brightness-110`}><LightningSlashIcon aria-hidden="true" size={22} /> Cortar la luz</button>}
+        {fase === 'guardando' && <button type="button" onClick={cortar} className={`${boton} chamfer animate-pulse bg-coral text-ink hover:brightness-110`}><XCircleIcon aria-hidden="true" size={22} /> Cerrar el juego de golpe</button>}
         {fase === 'cortado' && <button type="button" onClick={reabrir} className={`${boton} chamfer bg-amber text-ink hover:brightness-110`}><PowerIcon aria-hidden="true" size={22} /> Volver a abrir el juego</button>}
         {(fase === 'reabierto' || fase === 'completo') && <button type="button" onClick={reiniciar} className={`${boton} border border-white/20 text-fg hover:bg-white/5`}><ArrowClockwiseIcon aria-hidden="true" size={22} /> Probar otra vez</button>}
         <p role="status" className="text-lg text-body">{instruccion}</p>
