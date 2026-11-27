@@ -18,7 +18,7 @@ const TIPOS: { tipo: string; icono: Icon; como: string; motores: string[]; ejemp
     ejemplo: <pre className={ejemplo}>{`sesion:ana   → "token-9f2c"
 chunk:12:-4  → <bytes>
 online:total → 1532`}</pre>,
-    juego: 'Sesiones activas; chunks de Minecraft Bedrock.',
+    juego: 'Sesiones activas o los trozos (chunks) de un mundo abierto.',
   },
 ]
 

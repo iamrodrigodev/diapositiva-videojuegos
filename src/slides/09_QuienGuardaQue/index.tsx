@@ -36,7 +36,7 @@ export default function QuienGuardaQue() {
             <p className="flex flex-wrap items-center gap-2 text-fg">
               <DatabaseIcon aria-hidden="true" size={22} className="text-amber" />
               <strong className="font-display text-lg text-amber">Por eso elegimos SQLite para Estación Norte:</strong>
-              guarda la mayoría de sus datos (partidas, inventario, historial y top 10) con consultas y sin servidor. Cómo usarlo en Unity: Bloque 2.
+              es la que más datos guarda (4 de 10: partidas, inventario, historial y top 10) con consultas y sin servidor. Cómo usarlo en Unity: Bloque 2.
             </p>
           }
         />

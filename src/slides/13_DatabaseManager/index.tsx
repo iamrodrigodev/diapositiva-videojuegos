@@ -53,7 +53,7 @@ const PASOS_LEER: PasoCodigo[] = [
   { desde: 4, hasta: 8, titulo: 'Abrir con la misma conexión', texto: <>Cualquier script reutiliza <code>DatabaseManager.Conexion</code>. Este registra cada vez que se inicia el juego.</> },
   { desde: 10, hasta: 12, titulo: 'Escribir una fila', texto: <><code>@inicio</code> es un <strong>parámetro</strong>: el valor va aparte del SQL (la diapositiva siguiente explica por qué). <code>ExecuteNonQuery()</code> se usa porque no devuelve filas.</> },
   { desde: 14, hasta: 16, titulo: 'Pedir las filas', texto: <>Se limpia el parámetro anterior y se cambia la orden. <code>ExecuteReader()</code> ejecuta el <code>SELECT</code> y devuelve un <strong>lector</strong> que avanza fila por fila.</> },
-  { desde: 17, hasta: 18, titulo: 'Recorrerlas', texto: <><code>Read()</code> pasa a la siguiente fila hasta que no quedan. <code>GetInt32(0)</code> y <code>GetString(1)</code> leen cada columna por su posición. En la consola aparece: <code>Sesión 1: 2026-11-26T21:15:03</code>.</> },
+  { desde: 17, hasta: 18, titulo: 'Recorrerlas', texto: <><code>Read()</code> pasa a la siguiente fila hasta que no quedan. <code>GetInt32(0)</code> y <code>GetString(1)</code> leen cada columna por su posición. En la consola aparece: <code>Sesión 1: 2026-11-24T18:02:11</code>.</> },
 ]
 
 const PARTES = [

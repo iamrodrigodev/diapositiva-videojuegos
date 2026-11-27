@@ -8,7 +8,7 @@ import { usePersistentState } from '../../lib/usePersistentState'
 const LIMITES: { icono: Icon; titulo: string; texto: string }[] = [
   { icono: DeviceMobileIcon, titulo: 'No es global', texto: 'Cada dispositivo tiene su propio .db: tu ranking no ve el de tus amigos.' },
   { icono: PencilSimpleIcon, titulo: 'Se puede editar', texto: 'El archivo está en el dispositivo del jugador: con DB Browser (Bloque 2) cualquiera abre estacion_norte.db y cambia su puntaje.' },
-  { icono: TrashIcon, titulo: 'Se pierde con el dispositivo', texto: 'Desinstalar el juego o cambiar de celular borra persistentDataPath y el ranking con él.' },
+  { icono: TrashIcon, titulo: 'Se pierde con el dispositivo', texto: 'Desinstalar el juego borra persistentDataPath y el ranking con él; al cambiar de celular, el ranking se queda en el viejo.' },
 ]
 
 function Trampa() {
@@ -25,7 +25,7 @@ function Trampa() {
           </li>
         ))}
       </ol>
-      <code className="mt-3 block rounded-[0.3rem] bg-well p-2 font-mono text-xs text-fg">UPDATE records SET puntaje = 999999 WHERE jugador_id = 3;</code>
+      <code className="mt-3 block rounded-[0.3rem] bg-well p-2 font-mono text-xs text-fg">UPDATE records SET puntaje = 999999 WHERE jugador_id = 3 AND nivel = 3;</code>
       <button type="button" onClick={() => { setEditado(!editado); if (!editado) sonido.error() }} className="chamfer mt-3 flex min-h-10 items-center gap-2 bg-coral px-4 font-bold text-ink hover:brightness-110 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan">
         <PencilSimpleIcon aria-hidden="true" size={16} /> {editado ? 'Deshacer' : 'Editar estacion_norte.db'}
       </button>

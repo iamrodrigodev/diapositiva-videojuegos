@@ -5,7 +5,7 @@ import Slide from '../../components/Slide'
 const BLOQUES = [
   { n: 1, titulo: 'Contexto', rango: '03–09', que: 'Qué es persistir en Unity, cuándo hace falta, alternativas y por qué SQLite.', color: 'border-amber text-amber', barra: 'bg-amber' },
   { n: 2, titulo: 'SQLite en Unity', rango: '10–16', que: 'Origen, cómo funciona, cómo se integra y el código básico seguro.', color: 'border-cyan text-cyan', barra: 'bg-cyan' },
-  { n: 3, titulo: 'Guardado de partidas', rango: '17–23', que: 'Qué guardar, el modelo de datos, guardar, cargar y ranuras.', color: 'border-violet text-violet', barra: 'bg-violet' },
+  { n: 3, titulo: 'Guardado de partidas', rango: '17–23', que: 'Qué guardar, el modelo de datos, guardar, cargar, ranuras y un guardado que resiste cierres.', color: 'border-violet text-violet', barra: 'bg-violet' },
   { n: 4, titulo: 'Puntuaciones', rango: '24–30', que: 'Registrar puntajes, el top N, tu posición y los límites del ranking local.', color: 'border-coral text-coral', barra: 'bg-coral' },
 ]
 

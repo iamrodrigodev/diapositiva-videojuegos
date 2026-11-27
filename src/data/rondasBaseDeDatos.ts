@@ -24,8 +24,8 @@ export const RONDAS: Ronda[] = [
     explicacion: 'Las dos condiciones deben cumplirse a la vez; sin LIMIT salen todas las que pasan el filtro.',
   },
   {
-    consulta: 'SELECT j.nombre, r.nivel, r.puntaje\nFROM records r JOIN jugadores j ON j.id = r.jugador_id\nWHERE r.puntaje > 9000\nORDER BY r.puntaje DESC\nLIMIT 4;',
-    respuesta: ejecutar((f) => f.puntaje > 9000, true, 4),
+    consulta: 'SELECT j.nombre, r.nivel, r.puntaje\nFROM records r JOIN jugadores j ON j.id = r.jugador_id\nWHERE r.puntaje > 9000\nORDER BY r.puntaje DESC\nLIMIT 5;',
+    respuesta: ejecutar((f) => f.puntaje > 9000, true, 5),
     explicacion: 'Sin filtro de nivel, compiten todos los niveles juntos.',
   },
 ]

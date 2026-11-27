@@ -11,7 +11,7 @@ export const CODIGOS_CON_BUGS: CodigoConBugs[] = [
       'public string BuscarTipo(string nombre) {',
       '  var con = new SqliteConnection(DatabaseManager.Conexion);',
       '  con.Open();',
-      '  var cmd = con.CreateCommand();',
+      '  using var cmd = con.CreateCommand();',
       '  cmd.CommandText = "SELECT tipo_id FROM objetos WHERE nombre = \'" + nombre + "\'";',
       '  return cmd.ExecuteScalar()?.ToString();',
       '}',

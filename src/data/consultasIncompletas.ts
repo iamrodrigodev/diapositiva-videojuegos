@@ -16,14 +16,14 @@ export const CONSULTAS_INCOMPLETAS: ConsultaIncompleta[] = [
   },
   {
     titulo: 'Guardar solo el récord',
-    partes: ['INSERT INTO records (jugador_id, nivel, puntaje, fecha)\nVALUES (1, 2, 8800, datetime(\'now\'))\nON', ' (jugador_id, nivel) DO ', '\n  SET puntaje = ', '.puntaje\n  WHERE ', '.puntaje > records.puntaje;'],
+    partes: ['INSERT INTO records (jugador_id, nivel, puntaje, fecha)\nVALUES (1, 2, 8800, datetime(\'now\'))\nON', ' (jugador_id, nivel) DO ', '\n  SET puntaje = ', '.puntaje, fecha = datetime(\'now\')\n  WHERE ','.puntaje > records.puntaje;'],
     respuestas: ['CONFLICT', 'UPDATE', 'excluded', 'excluded'],
     trampas: ['DELETE', 'NEW'],
-    explicacion: 'ON CONFLICT … DO UPDATE es el upsert; excluded es el puntaje nuevo, y el WHERE solo actualiza si lo supera.',
+    explicacion: 'ON CONFLICT … DO UPDATE es el upsert; excluded es el puntaje nuevo, y el WHERE solo actualiza (puntaje y fecha) si lo supera.',
   },
   {
     titulo: 'Numerar los puestos',
-    partes: ['SELECT jugador_id,\n  ', '() OVER (ORDER BY puntaje ', ') AS posicion\nFROM records;'],
+    partes: ['SELECT jugador_id,\n  ', '() OVER (ORDER BY puntaje ', ') AS posicion\nFROM records\nWHERE nivel = 3;'],
     respuestas: ['RANK', 'DESC'],
     trampas: ['COUNT', 'ASC'],
     explicacion: 'RANK() OVER (ORDER BY puntaje DESC) da el puesto 1 al puntaje más alto.',

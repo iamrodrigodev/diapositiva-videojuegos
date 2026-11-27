@@ -19,7 +19,7 @@ const POSICION = `public static int Posicion(int jugadorId, int nivel) {
 const PASOS_POSICION: PasoCodigo[] = [
   { desde: 1, hasta: 1, titulo: 'Otro método de Ranking', texto: <>Se agrega a la clase <code>Ranking</code> de la diapositiva anterior.</> },
   { desde: 5, hasta: 6, titulo: 'Numerar a todos', texto: <><code>RANK() OVER (ORDER BY puntaje DESC)</code> le da a cada fila su puesto. Si dos empatan, comparten el puesto. Requiere SQLite 3.25 o superior.</> },
-  { desde: 4, hasta: 7, titulo: 'Quedarse con el mío', texto: <>La consulta de afuera busca, entre todos los puestos, solo el del jugador: «quedaste #7» aunque no esté en el top 10.</> },
+  { desde: 4, hasta: 7, titulo: 'Quedarse con el mío', texto: <>La consulta de afuera busca, entre todos los puestos, solo el del jugador: «quedaste #27» aunque no esté en el top 10.</> },
   { desde: 10, hasta: 11, titulo: 'Sin puntaje', texto: <>Si el jugador nunca terminó ese nivel no hay fila: <code>ExecuteScalar()</code> devuelve <code>null</code> y el método responde 0.</> },
 ]
 
