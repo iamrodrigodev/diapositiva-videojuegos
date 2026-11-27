@@ -41,14 +41,14 @@ export default function CodigoPorPasos({ id, partes }: Props) {
         </ol>
       )}
       <div className="grid grid-cols-[3fr_2fr] gap-4 max-[900px]:grid-cols-1">
-        <pre ref={panel} aria-label={`Código: ${parte?.titulo ?? ''}`} className="relative max-h-[24rem] overflow-auto rounded-lg border border-white/12 bg-well py-3 font-mono text-[0.78rem] leading-normal">
+        <pre ref={panel} aria-label={`Código: ${parte?.titulo ?? ''}`} className="relative max-h-[24rem] overflow-x-hidden overflow-y-auto rounded-lg border border-white/12 bg-well py-3 font-mono text-[0.78rem] leading-normal">
           <code>
             {lineas.map((linea, i) => {
               const activa = paso !== undefined && i + 1 >= paso.desde && i + 1 <= paso.hasta
               return (
                 <span key={`${actual?.parte}-${i}`} data-linea={i + 1} className={`grid grid-cols-[2.5rem_1fr] transition-colors ${activa ? 'bg-cyan/15 text-fg' : 'text-muted/70'}`}>
                   <span className={`pr-3 text-right select-none ${activa ? 'text-cyan' : 'text-muted/50'}`}>{i + 1}</span>
-                  <span className={`pr-3 ${activa ? 'border-l-2 border-cyan pl-2' : 'pl-2.5'}`}>{linea || ' '}</span>
+                  <span className={`pr-3 break-words whitespace-pre-wrap ${activa ? 'border-l-2 border-cyan pl-2' : 'pl-2.5'}`}>{linea || ' '}</span>
                 </span>
               )
             })}

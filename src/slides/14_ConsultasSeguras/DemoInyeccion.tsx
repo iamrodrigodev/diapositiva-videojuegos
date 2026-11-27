@@ -46,7 +46,7 @@ export default function DemoInyeccion() {
         <Card tone="coral" className="flex flex-col gap-2" title={<><WarningIcon aria-hidden="true" size={22} /> Concatenando texto</>}>
           <CodeBlock code={`cmd.CommandText = "SELECT * FROM jugadores WHERE nombre = '" + nombre + "'";`} />
           <p className="font-mono text-xs text-muted">SQL que recibe la base:</p>
-          <pre className="overflow-x-auto rounded-[0.4rem] bg-well p-3 font-mono text-[0.8rem] text-fg">SELECT * FROM jugadores WHERE nombre = '<span className={peligro ? 'bg-coral/30 text-coral' : 'text-amber'}>{nombre}</span>'</pre>
+          <pre className="rounded-[0.4rem] bg-well p-3 font-mono text-[0.8rem] break-words whitespace-pre-wrap text-fg">SELECT * FROM jugadores WHERE nombre = '<span className={peligro ? 'bg-coral/30 text-coral' : 'text-amber'}>{nombre}</span>'</pre>
           {peligro && <p className="text-sm text-coral">La comilla cierra el texto: lo que sigue se ejecuta como otra orden SQL.</p>}
           <button type="button" onClick={() => { const r = ejecutar(nombre, false); setMal(r); if (r.tipo === 'borrada') sonido.error() }} className={`${ejecutarBoton} bg-coral`}><PlayIcon aria-hidden="true" size={16} /> Ejecutar</button>
           <Salida resultado={mal} />
@@ -55,7 +55,7 @@ export default function DemoInyeccion() {
           <CodeBlock code={`cmd.CommandText = "SELECT * FROM jugadores WHERE nombre = @nombre";
 cmd.Parameters.AddWithValue("@nombre", nombre);`} />
           <p className="font-mono text-xs text-muted">La base recibe la orden y el dato por separado:</p>
-          <pre className="overflow-x-auto rounded-[0.4rem] bg-well p-3 font-mono text-[0.8rem] text-fg">@nombre = <span className="text-mint">{JSON.stringify(nombre)}</span></pre>
+          <pre className="rounded-[0.4rem] bg-well p-3 font-mono text-[0.8rem] break-words whitespace-pre-wrap text-fg">@nombre = <span className="text-mint">{JSON.stringify(nombre)}</span></pre>
           <p className="text-sm text-body">El dato nunca se ejecuta: siempre es solo un texto a buscar.</p>
           <button type="button" onClick={() => { setBien(ejecutar(nombre, true)); sonido.acierto() }} className={`${ejecutarBoton} bg-mint`}><PlayIcon aria-hidden="true" size={16} /> Ejecutar</button>
           <Salida resultado={bien} />

@@ -46,7 +46,7 @@ LIMIT ${cantidad};`
         </fieldset>
       </section>
       <div className="grid content-start gap-3">
-        <pre aria-label="Consulta SQL generada" className="overflow-x-auto rounded-lg border border-coral/40 bg-well p-3 font-mono text-[0.8rem] leading-normal text-fg">{sql}</pre>
+        <pre aria-label="Consulta SQL generada" className="rounded-lg border border-coral/40 bg-well p-3 font-mono break-words whitespace-pre-wrap text-[0.8rem] leading-normal text-fg">{sql}</pre>
         <section aria-live="polite" className="rounded-lg border border-white/12 bg-panel p-3">
           <p className="mb-2 flex items-center gap-2 font-mono text-xs text-muted"><TrophyIcon aria-hidden="true" size={14} className="text-coral" /> Resultado · {resultado.length} fila{resultado.length === 1 ? '' : 's'}</p>
           {resultado.length

@@ -88,7 +88,7 @@ export default function CazaBugs() {
             <span className="flex items-center gap-1.5 text-cyan"><TrophyIcon aria-hidden="true" size={18} /> {puntos} pts</span>
           </span>
         </div>
-        <ol aria-label="Líneas de código: clic para marcar un bug" className="overflow-x-auto rounded-lg border border-white/12 bg-well py-2 font-mono text-[0.78rem]">
+        <ol aria-label="Líneas de código: clic para marcar un bug" className="rounded-lg border border-white/12 bg-well py-2 font-mono text-[0.78rem]">
           {codigo.lineas.map((linea, i) => {
             const marcada = marcadas.includes(i)
             const esBug = bugs.includes(i)
@@ -98,10 +98,10 @@ export default function CazaBugs() {
               : marcada ? 'bg-coral/15 text-fg' : enPista ? 'bg-amber/10 text-fg' : 'text-fg hover:bg-white/5'
             return (
               <li key={i}>
-                <button type="button" aria-pressed={marcada} onClick={() => alternar(i)} className={`grid w-full grid-cols-[2.5rem_1.5rem_1fr] items-center text-left whitespace-pre focus-visible:outline-2 focus-visible:outline-cyan ${color}`}>
+                <button type="button" aria-pressed={marcada} onClick={() => alternar(i)} className={`grid w-full grid-cols-[2.5rem_1.5rem_1fr] items-center text-left focus-visible:outline-2 focus-visible:outline-cyan ${color}`}>
                   <span className="pr-2 text-right text-muted/60 select-none">{i + 1}</span>
                   <span aria-hidden="true">{marcada ? <BugIcon size={14} /> : enPista ? <LightbulbIcon size={14} className="text-amber" /> : ''}</span>
-                  <span className="py-0.5 pr-3">{linea}</span>
+                  <span className="py-0.5 pr-3 break-words whitespace-pre-wrap">{linea}</span>
                 </button>
               </li>
             )
