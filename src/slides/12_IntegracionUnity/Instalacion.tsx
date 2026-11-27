@@ -4,7 +4,7 @@ import CodeBlock from '../../components/CodeBlock'
 const PASOS = [
   { hacer: 'Cambiar la compatibilidad de .NET', donde: 'Edit › Project Settings › Player › Api Compatibility Level → .NET Framework', porque: 'Mono.Data.Sqlite usa clases de .NET que el perfil por defecto no incluye.' },
   { hacer: 'Copiar las DLL de C#', donde: 'Mono.Data.Sqlite.dll y System.Data.dll → Assets/Plugins', porque: 'Son la API con la que tu código C# le habla a SQLite. Vienen dentro de la instalación de Unity.' },
-  { hacer: 'Agregar el motor nativo', donde: 'sqlite3 (descarga oficial de sqlite.org) → Assets/Plugins/<plataforma>', porque: 'El motor real de SQLite está escrito en C: hay una versión por sistema operativo.' },
+  { hacer: 'Agregar el motor nativo', donde: 'Windows: sqlite3.dll de sqlite.org · Android: libsqlite3.so del paquete SQLite4Unity3d o compilado con el NDK → Assets/Plugins/<plataforma>', porque: 'El motor real de SQLite está escrito en C: hay una versión por sistema operativo.' },
   { hacer: 'Marcar las plataformas', donde: 'Seleccionar cada plugin › Inspector › casillas de plataforma', porque: 'Así Unity incluye en cada build solo la librería que esa plataforma necesita.' },
 ]
 
