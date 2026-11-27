@@ -1,5 +1,21 @@
 @import "tailwindcss";
 
+@layer base {
+  button:not(:disabled),
+  [role="button"],
+  [role="tab"],
+  a[href],
+  label[for],
+  select,
+  summary {
+    cursor: pointer;
+  }
+
+  button:disabled {
+    cursor: not-allowed;
+  }
+}
+
 @theme {
   --font-sans: 'IBM Plex Sans Variable', sans-serif;
   --font-mono: 'JetBrains Mono Variable', monospace;
