@@ -7,8 +7,8 @@ import BorrarProgreso from './BorrarProgreso'
 const INTEGRANTES = [
   'Rodrigo Emerson Infanzón Acosta',
   'Carlos Daniel Aguilar Chirinos',
-  'Esther Mariana Chunga Pacheco',
   'Abimael Frontado Fajardo',
+  'Esther Mariana Chunga Pacheco',
 ]
 
 export default function Portada() {
