@@ -12,7 +12,8 @@ export function useCronometro(id: string) {
     let ultimo = Date.now()
     const t = window.setInterval(() => {
       const ahora = Date.now()
-      if (document.visibilityState === 'visible') setMs((m) => m + Math.min(ahora - ultimo, 1000))
+      const paso = Math.min(ahora - ultimo, 1000)
+      if (document.visibilityState === 'visible') setMs((m) => m + paso)
       ultimo = ahora
     }, 250)
     return () => window.clearInterval(t)
