@@ -16,7 +16,7 @@ const RECALCULAR = [
   ['Vida máxima', 'sale de una fórmula con el nivel'],
   ['Enemigos', 'se regeneran con la escena'],
   ['Peso del inventario', 'suma de los objetos'],
-  ['Estadísticas del arma', 'vienen del catálogo: basta su id'],
+  ['Estadísticas del arma', 'vienen del catálogo: basta su nombre'],
 ]
 
 const CLASE = `using System.Collections.Generic;

@@ -44,7 +44,7 @@ Partida p = JsonUtility.FromJson<Partida>(File.ReadAllText(ruta));`,
     codigo: `-- Se pide solo lo necesario, sin cargar todo el archivo
 SELECT nombre, precio
 FROM objetos
-WHERE tipo = 'llave';`,
+WHERE tipo_id = 2; -- 2 = llave`,
     pros: ['Tablas relacionadas y consultas SQL', 'Lee y escribe por filas, no el archivo entero', 'Transacciones: no se corrompe a mitad de un guardado'],
     contras: ['Requiere un plugin', 'Más código inicial que PlayerPrefs o JSON'],
   },

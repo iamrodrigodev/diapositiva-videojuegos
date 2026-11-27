@@ -4,7 +4,7 @@ import Reveal from '../../components/Reveal'
 import Slide from '../../components/Slide'
 
 const SI = [
-  'Muchos datos relacionados: partidas, inventario, historial.',
+  'Muchos datos relacionados: partidas, inventario, récords.',
   'Hace falta consultar: filtrar, ordenar, el top 10.',
   'Todo vive en el dispositivo del jugador, sin internet.',
   'Hay que proteger el guardado con transacciones.',

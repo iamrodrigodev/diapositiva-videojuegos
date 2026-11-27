@@ -23,8 +23,8 @@ const VUELO = {
 const grande = 'flex min-h-16 flex-1 items-center justify-center gap-3 rounded-lg border-2 px-4 font-display text-xl font-bold focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan disabled:opacity-40'
 
 export default function Cartas() {
-  const [ronda, setRonda] = usePersistentState<string[]>('cartas:ronda', nuevaRonda)
-  const [respuestas, setRespuestas] = usePersistentState<Respuesta[]>('cartas:respuestas', [])
+  const [ronda, setRonda] = usePersistentState<string[]>('cartas:ronda-v2', nuevaRonda)
+  const [respuestas, setRespuestas] = usePersistentState<Respuesta[]>('cartas:respuestas-v2', [])
   const [racha, setRacha] = usePersistentState('cartas:racha', 0)
   const [record, setRecord] = usePersistentState('cartas:record', 0)
   const reloj = useCronometro('cartas:reloj')
