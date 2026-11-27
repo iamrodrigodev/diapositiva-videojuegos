@@ -1,4 +1,4 @@
-import { DatabaseIcon } from '@phosphor-icons/react'
+import { DatabaseIcon, TrashIcon } from '@phosphor-icons/react'
 import { motion, useReducedMotion } from 'framer-motion'
 import { siUnity } from 'simple-icons'
 import { fadeUp, stagger } from '../../lib/motion'
@@ -9,6 +9,12 @@ const INTEGRANTES = [
   'Esther Mariana Chunga Pacheco',
   'Abimael Frontado Fajardo',
 ]
+
+function borrarProgreso() {
+  if (!window.confirm('¿Borrar el avance de todos los juegos y pestañas? No se puede deshacer.')) return
+  Object.keys(localStorage).filter((k) => k.startsWith('diapos:')).forEach((k) => localStorage.removeItem(k))
+  location.reload()
+}
 
 export default function Portada() {
   const reducedMotion = useReducedMotion() === true
@@ -57,6 +63,11 @@ export default function Portada() {
           {INTEGRANTES.map((nombre) => <li key={nombre}>{nombre}</li>)}
         </ul>
       </motion.section>
+      <motion.div variants={fadeUp}>
+        <button type="button" onClick={borrarProgreso} className="flex min-h-9 items-center gap-2 rounded-[0.4rem] border border-white/15 px-3 font-mono text-xs text-muted hover:border-coral/60 hover:text-coral focus-visible:outline-2 focus-visible:outline-cyan">
+          <TrashIcon aria-hidden="true" size={16} /> Borrar el progreso guardado
+        </button>
+      </motion.div>
     </motion.div>
   )
 }
