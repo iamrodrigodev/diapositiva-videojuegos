@@ -23,6 +23,7 @@ export default function App() {
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
+      if (document.querySelector('dialog[open]')) return
       if (e.target instanceof HTMLElement && e.target.closest('select, input, textarea')) return
       if (e.key === 'ArrowRight' || e.key === 'PageDown') setActual((i) => Math.min(i + 1, ultima))
       if (e.key === 'ArrowLeft' || e.key === 'PageUp') setActual((i) => Math.max(i - 1, 0))
