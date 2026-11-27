@@ -6,7 +6,6 @@ export type ConsultaIncompleta = {
   explicacion: string
 }
 
-// partes intercala texto y huecos: partes.length === respuestas.length + 1.
 export const CONSULTAS_INCOMPLETAS: ConsultaIncompleta[] = [
   {
     titulo: 'Top 10 del nivel 2',

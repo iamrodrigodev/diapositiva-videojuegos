@@ -1,4 +1,3 @@
-// Referencias en APA 7, en orden alfabético por autor.
 export const REFERENCIAS: { texto: string; titulo: string; resto: string; url?: string }[] = [
   { texto: 'Amazon Web Services. (s.f.).', titulo: 'Supercell case study', resto: '.', url: 'https://aws.amazon.com/solutions/case-studies/supercell/' },
   { texto: 'Bell, A. (Presentador). (2021). The untold story of SQLite with Richard Hipp (N.º 66) [Episodio de pódcast]. En', titulo: 'CoRecursive', resto: '.', url: 'https://corecursive.com/066-sqlite-with-richard-hipp/' },

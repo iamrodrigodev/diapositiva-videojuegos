@@ -7,7 +7,6 @@ export const clave = (f: FilaPuntaje) => `${f.jugador}-${f.nivel}`
 const ejecutar = (filtro: (f: FilaPuntaje) => boolean, desc: boolean, limite?: number) =>
   PUNTAJES_EJEMPLO.filter(filtro).sort((a, b) => (desc ? b.puntaje - a.puntaje : a.puntaje - b.puntaje)).slice(0, limite).map(clave)
 
-// La respuesta se calcula con los mismos datos que ve el jugador: no puede desincronizarse.
 export const RONDAS: Ronda[] = [
   {
     consulta: 'SELECT j.nombre, r.nivel, r.puntaje\nFROM records r JOIN jugadores j ON j.id = r.jugador_id\nWHERE r.nivel = 1\nORDER BY r.puntaje DESC\nLIMIT 3;',

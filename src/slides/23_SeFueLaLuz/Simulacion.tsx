@@ -1,5 +1,5 @@
 import { ArrowClockwiseIcon, ArrowRightIcon, CheckCircleIcon, FloppyDiskIcon, PowerIcon, XCircleIcon, WarningIcon } from '@phosphor-icons/react'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { sonido } from '../../lib/sonido'
 import { usePersistentState } from '../../lib/usePersistentState'
 
@@ -33,6 +33,22 @@ const boton = 'flex min-h-12 items-center gap-2 rounded-[0.4rem] px-5 text-lg fo
 export default function Simulacion() {
   const [fase, setFase] = usePersistentState<Fase>('luz2:fase', 'listo')
   const [hechos, setHechos] = usePersistentState('luz2:hechos', 0)
+  const [cerradoAMitad] = useState(() => fase === 'guardando')
+
+  useEffect(() => {
+    if (cerradoAMitad) setFase('cortado')
+  }, [cerradoAMitad, setFase])
+
+  useEffect(() => {
+    if (fase !== 'guardando') return
+    const alOcultar = () => { if (document.visibilityState === 'hidden') setFase('cortado') }
+    document.addEventListener('visibilitychange', alOcultar)
+    window.addEventListener('pagehide', alOcultar)
+    return () => {
+      document.removeEventListener('visibilitychange', alOcultar)
+      window.removeEventListener('pagehide', alOcultar)
+    }
+  }, [fase, setFase])
 
   useEffect(() => {
     if (fase !== 'guardando') return
@@ -54,7 +70,7 @@ export default function Simulacion() {
 
   const instruccion = {
     listo: <>① Pulsa <strong className="text-mint">Guardar partida</strong>.</>,
-    guardando: <>② ¡Rápido! <strong className="text-coral">Cierra el juego de golpe</strong> antes de que termine.</>,
+    guardando: <>② ¡Rápido! <strong className="text-coral">Cierra el juego de golpe</strong> antes de que termine: pulsa el botón, minimiza, apaga la pantalla o recarga la página.</>,
     cortado: <>③ El juego se cerró. <strong className="text-amber">Vuelve a abrir el juego</strong>: ¿qué quedó guardado?</>,
     reabierto: <>Compara las dos ranuras. ¿Cuál preferirías como jugador?</>,
     completo: <>Esta vez no cerraste el juego: los dos guardados terminaron bien. <strong className="text-fg">Prueba otra vez y ciérralo a mitad.</strong></>,
